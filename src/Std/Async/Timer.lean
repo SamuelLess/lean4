@@ -85,9 +85,7 @@ def selector (s : Sleep) : Selector Unit :=
         | none => do
           return ()
         | some _ =>
-          let lose := return ()
-          let win promise := promise.resolve (.ok ())
-          waiter.race lose win
+          discard <| (waiter.completeWith (pure ())).toBaseIO
 
     unregisterFn := s.native.cancel
   }

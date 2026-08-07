@@ -173,9 +173,7 @@ def selector (token : CancellationToken) : Selector Unit := {
       let st ← get
 
       if st.reason.isSome then
-        discard <| waiter.race (return false) (fun promise => do
-          promise.resolve (.ok ())
-          return true)
+        waiter.completeWith (pure ())
       else
         modify fun st => { st with consumers := st.consumers.enqueue (.select waiter) }
 

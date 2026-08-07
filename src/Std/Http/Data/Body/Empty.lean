@@ -65,11 +65,7 @@ Selector that immediately resolves with end-of-stream for an empty body.
 @[inline]
 def recvSelector (_ : Empty) : Selector (Option Chunk) where
   tryFn := pure (some none)
-  registerFn waiter := do
-    let lose := pure ()
-    let win promise := do
-      promise.resolve (.ok none)
-    waiter.race lose win
+  registerFn waiter := waiter.completeWith (pure none)
   unregisterFn := pure ()
 
 end Empty

@@ -112,16 +112,10 @@ def recvSelector (s : Socket) (size : UInt64) : Selector (ByteArray × Option So
         match res with
         | none => return ()
         | some res =>
-          let lose := return ()
-          let win promise := do
-            try
-              discard <| IO.ofExcept res
-              -- We know that this read should not block
-              let res ← (s.recv size).block
-              promise.resolve (.ok res)
-            catch e =>
-              promise.resolve (.error e)
-          waiter.race lose win
+          discard <| (waiter.completeWith (do
+            discard <| IO.ofExcept res
+            -- We know that this read should not block
+            s.recv size)).toBaseIO
 
     unregisterFn := s.native.cancelRecv
   }

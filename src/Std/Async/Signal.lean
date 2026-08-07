@@ -245,9 +245,7 @@ def selector (s : Signal.Waiter) : Selector Unit :=
     registerFn waiter := do
       let signalWaiter ← s.wait
       discard <| AsyncTask.mapIO (x := signalWaiter) fun _ => do
-        let lose := return ()
-        let win promise := promise.resolve (.ok ())
-        waiter.race lose win
+        discard <| (waiter.completeWith (pure ())).toBaseIO
 
     unregisterFn := s.native.cancel
 

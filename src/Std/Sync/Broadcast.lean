@@ -448,9 +448,7 @@ where
             if res then
               registerAux ch waiter
             else
-              let lose := return ()
-              let win promise := promise.resolve (.ok none)
-              waiter.race lose win
+              discard <| (waiter.completeWith (pure none)).toBaseIO
 
 end Receiver
 end Bounded

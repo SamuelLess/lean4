@@ -636,15 +636,9 @@ def interestSelector (stream : Stream) : Selector Bool where
       let st ← get
 
       if st.pendingConsumer.isSome then
-        let lose := return ()
-        let win promise := do
-          promise.resolve (.ok true)
-        waiter.race lose win
+        waiter.completeWith (pure true)
       else if st.closed then
-        let lose := return ()
-        let win promise := do
-          promise.resolve (.ok false)
-        waiter.race lose win
+        waiter.completeWith (pure false)
       else if st.interestWaiter.isSome then
         throw (.userError "only one blocked interest selector is allowed")
       else

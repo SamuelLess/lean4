@@ -55,6 +55,18 @@ def Waiter.race [Monad m] [MonadLiftT (ST IO.RealWorld) m] (w : Waiter α)
     lose
 
 /--
+Try to win `w`; on winning, resolve its promise with the result of `act`
+(error captured into the promise). No-op if the race is already lost.
+-/
+@[inline]
+def Waiter.completeWith (w : Waiter α) (act : Async α) : Async Unit :=
+  w.race (pure ()) fun promise => do
+    try
+      promise.resolve (.ok (← act))
+    catch e =>
+      promise.resolve (.error e)
+
+/--
 Atomically checks whether the `Waiter` has already finished. Note that right after this function
 call ends this might have already changed.
 -/

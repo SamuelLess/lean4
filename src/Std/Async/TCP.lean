@@ -93,14 +93,8 @@ def acceptSelector (s : TCP.Socket.Server) : Selector Client :=
         match res with
         | none => return ()
         | some res =>
-          let lose := return ()
-          let win promise := do
-            try
-              let result ← IO.ofExcept res
-              promise.resolve (.ok (Client.ofNative result))
-            catch e =>
-              promise.resolve (.error e)
-          waiter.race lose win
+          discard <| (waiter.completeWith (do
+            return Client.ofNative (← IO.ofExcept res))).toBaseIO
 
     unregisterFn := s.native.cancelAccept
   }
@@ -203,16 +197,10 @@ def recvSelector (s : TCP.Socket.Client) (size : UInt64) : Selector (Option Byte
         match res with
         | none => return ()
         | some res =>
-          let lose := return ()
-          let win promise := do
-            try
-              discard <| IO.ofExcept res
-              -- We know that this read should not block
-              let res ← (s.recv? size).block
-              promise.resolve (.ok res)
-            catch e =>
-              promise.resolve (.error e)
-          waiter.race lose win
+          discard <| (waiter.completeWith (do
+            discard <| IO.ofExcept res
+            -- We know that this read should not block
+            s.recv? size)).toBaseIO
 
     unregisterFn := s.native.cancelRecv
   }
