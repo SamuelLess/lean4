@@ -117,7 +117,7 @@ private theorem exists_getElem_eq_of_drop_eq_cons {xs : List α} {k : Nat} {y : 
     (h : xs.drop k = y :: ys) : ∃ hlt : k < xs.length, xs[k] = y := by
   have hlt : k < xs.length := by
     false_or_by_contra
-    have : drop k xs = [] := drop_of_length_le (by omega)
+    have : drop k xs = [] := drop_eq_nil_of_le (by omega)
     simp [this] at h
   refine ⟨hlt, ?_⟩
   have := take_append_drop k xs

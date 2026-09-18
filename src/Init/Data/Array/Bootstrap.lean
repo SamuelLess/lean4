@@ -35,7 +35,7 @@ theorem foldlM_toList.aux [Monad m]
     simp [foldlM_toList.aux (j := j+1) H]
     rw (occs := [2]) [← List.getElem_cons_drop ‹_›]
     simp
-  · rw [List.drop_of_length_le (Nat.ge_of_not_lt ‹_›)]; simp
+  · rw [List.drop_eq_nil_of_le (Nat.ge_of_not_lt ‹_›)]; simp
 
 @[simp, grind =] theorem foldlM_toList [Monad m]
     {f : β → α → m β} {init : β} {xs : Array α} :

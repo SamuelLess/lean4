@@ -382,7 +382,7 @@ private theorem forIn'Impl_go_eq_forIn'_drop [Monad m] {c : Clause α}
     | yield b' => exact ih b'
   | case2 i b h =>
     have hd : c.literals.drop i = [] :=
-      List.drop_of_length_le (by simp only [length_literals, Internal.size_eq_size_atoms]; omega)
+      List.drop_eq_nil_of_le (by simp only [length_literals, Internal.size_eq_size_atoms]; omega)
     simp only [hd, List.forIn'_nil]
 
 theorem forIn'_eq_forIn'_literals [Monad m] {c : Clause α} {init : β}
@@ -434,7 +434,7 @@ private theorem literals_erase_go [BEq α] [LawfulBEq α] {c : Clause α} {lit :
     rw [List.drop_eq_getElem_cons hlt, List.filter_cons, hlit, ih, literals_add]
     simp [hne]
   | case3 i acc h =>
-    rw [List.drop_of_length_le (by rw [length_literals]; omega)]
+    rw [List.drop_eq_nil_of_le (by rw [length_literals]; omega)]
     simp
 
 @[simp]

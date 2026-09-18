@@ -61,20 +61,21 @@ theorem drop_one : ∀ {l : List α}, l.drop 1 = l.tail
     length (drop (i + 1) (x :: l)) = length l - i := length_drop (i := i) (l := l)
     _ = succ (length l) - succ i := (Nat.succ_sub_succ_eq_sub (length l) i).symm
 
+@[deprecated List.drop_eq_nil_of_le +typeChanged (since := "2026-09-18")]
 theorem drop_of_length_le {l : List α} (h : l.length ≤ i) : l.drop i = [] :=
-  length_eq_zero_iff.1 (length_drop .. ▸ Nat.sub_eq_zero_of_le h)
+  drop_eq_nil_of_le h
 
 theorem length_lt_of_drop_ne_nil {l : List α} {i} (h : drop i l ≠ []) : i < l.length :=
-  gt_of_not_le (mt drop_of_length_le h)
+  gt_of_not_le (mt drop_eq_nil_of_le h)
 
 theorem take_of_length_le {l : List α} (h : l.length ≤ i) : take i l = l := by
   have := take_append_drop i l
-  rw [drop_of_length_le h, append_nil] at this; exact this
+  rw [drop_eq_nil_of_le h, append_nil] at this; exact this
 
 theorem lt_length_of_take_ne_self {l : List α} {i} (h : l.take i ≠ l) : i < l.length :=
   gt_of_not_le (mt take_of_length_le h)
 
-@[simp, grind =] theorem drop_length {l : List α} : l.drop l.length = [] := drop_of_length_le (Nat.le_refl _)
+@[simp, grind =] theorem drop_length {l : List α} : l.drop l.length = [] := drop_eq_nil_of_le (Nat.le_refl _)
 
 @[simp, grind =] theorem take_length {l : List α} : l.take l.length = l := take_of_length_le (Nat.le_refl _)
 
@@ -479,7 +480,7 @@ theorem replace_takeWhile [BEq α] [LawfulBEq α] {l : List α} {p : α → Bool
 
 @[simp, grind =] theorem splitAt_eq {i : Nat} {l : List α} : splitAt i l = (l.take i, l.drop i) := by
   rw [splitAt, splitAt_go, reverse_nil, nil_append]
-  split <;> simp_all [take_of_length_le, drop_of_length_le]
+  split <;> simp_all [take_of_length_le, drop_eq_nil_of_le]
 
 /-! ### rotateLeft -/
 

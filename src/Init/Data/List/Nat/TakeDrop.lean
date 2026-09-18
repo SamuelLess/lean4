@@ -457,7 +457,7 @@ theorem drop_reverse {α} {xs : List α} {i : Nat} :
       congr
       omega
   · have w : xs.length - i = 0 := by omega
-    rw [drop_of_length_le, w, take_zero, reverse_nil]
+    rw [drop_eq_nil_of_le, w, take_zero, reverse_nil]
     simp
     omega
 
@@ -478,7 +478,7 @@ theorem reverse_drop {l : List α} {i : Nat} :
     congr
     omega
   · have w : l.length - i = 0 := by omega
-    rw [w, take_zero, drop_of_length_le, reverse_nil]
+    rw [w, take_zero, drop_eq_nil_of_le, reverse_nil]
     omega
 
 theorem drop_eq_getElem?_toList_append {l : List α} {i : Nat} :
