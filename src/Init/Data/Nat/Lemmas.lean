@@ -579,16 +579,6 @@ protected theorem mul_ne_zero : n ≠ 0 → m ≠ 0 → n * m ≠ 0 := (Nat.mul_
 protected theorem ne_zero_of_mul_ne_zero_left (h : n * m ≠ 0) : n ≠ 0 :=
   (Nat.mul_ne_zero_iff.1 h).1
 
-protected theorem mul_left_cancel {n m k : Nat} (np : 0 < n) (h : n * m = n * k) : m = k := by
-  match Nat.lt_trichotomy m k with
-  | Or.inl p =>
-    have r : n * m < n * k := Nat.mul_lt_mul_of_pos_left p np
-    simp [h] at r
-  | Or.inr (Or.inl p) => exact p
-  | Or.inr (Or.inr p) =>
-    have r : n * k < n * m := Nat.mul_lt_mul_of_pos_left p np
-    simp [h] at r
-
 protected theorem mul_right_cancel {n m k : Nat} (mp : 0 < m) (h : n * m = k * m) : n = k := by
   simp [Nat.mul_comm _ m] at h
   apply Nat.mul_left_cancel mp h
