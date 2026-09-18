@@ -301,8 +301,11 @@ protected theorem sub_right_comm (m n k : Nat) : m - n - k = m - k - n := by
 
 protected theorem add_sub_cancel_right (n m : Nat) : (n + m) - m = n := Nat.add_sub_cancel ..
 
-@[simp] protected theorem add_sub_cancel' {n m : Nat} (h : m ≤ n) : m + (n - m) = n := by
-  rw [Nat.add_comm, Nat.sub_add_cancel h]
+attribute [simp] Nat.add_sub_of_le
+
+@[deprecated Nat.add_sub_of_le +typeChanged (since := "2026-09-18")]
+protected theorem add_sub_cancel' {n m : Nat} (h : m ≤ n) : m + (n - m) = n :=
+  Nat.add_sub_of_le h
 
 theorem succ_sub_one (n) : succ n - 1 = n := rfl
 

@@ -338,7 +338,7 @@ public theorem toArray_mkSlice_rco {xs : Array α} {lo hi : Nat} :
   simp only [List.take_drop, mk.injEq]
   by_cases h : lo ≤ hi
   · congr 1
-    rw [List.take_eq_take_iff, Nat.add_sub_cancel' h]
+    rw [List.take_eq_take_iff, Nat.add_sub_of_le h]
   · rw [List.drop_eq_nil_of_le, List.drop_eq_nil_of_le]
     · simp; omega
     · simp; omega
@@ -693,7 +693,7 @@ public theorem toList_mkSlice_rco {xs : Subarray α} {lo hi : Nat} :
   simp only [Std.Rco.Sliceable.mkSlice, Std.Rco.HasRcoIntersection.intersection, toList_eq,
     Array.start_toSubarray, Array.stop_toSubarray, Array.toList_extract, List.take_drop,
     List.take_take]
-  rw [Nat.add_sub_cancel' (by omega)]
+  rw [Nat.add_sub_of_le (by omega)]
   simp [Subarray.size_eq, ← Array.length_toList, ← List.take_eq_take_min, Nat.add_comm xs.start]
 
 @[simp, grind =]

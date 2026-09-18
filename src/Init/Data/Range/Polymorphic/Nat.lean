@@ -35,7 +35,7 @@ instance : LawfulUpwardEnumerableLE Nat where
   le_iff a b := by
     constructor
     · intro h
-      exact ⟨b - a, by simp [UpwardEnumerable.succMany?, Nat.add_sub_cancel' h]⟩
+      exact ⟨b - a, by simp [UpwardEnumerable.succMany?, Nat.add_sub_of_le h]⟩
     · rintro ⟨n, hn⟩
       simp only [UpwardEnumerable.succMany?, Option.some.injEq] at hn
       rw [← hn]

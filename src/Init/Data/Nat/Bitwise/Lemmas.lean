@@ -286,7 +286,7 @@ theorem testBit_mul_two_pow_add_eq (a b i : Nat) :
 
 theorem testBit_two_pow_add_gt {i j : Nat} (j_lt_i : j < i) (x : Nat) :
     testBit (2^i + x) j = testBit x j := by
-  have i_def : i = j + (i-j) := (Nat.add_sub_cancel' (Nat.le_of_lt j_lt_i)).symm
+  have i_def : i = j + (i-j) := (Nat.add_sub_of_le (Nat.le_of_lt j_lt_i)).symm
   rw [i_def]
   simp only [testBit_eq_decide_div_mod_eq, Nat.pow_add,
         Nat.mul_add_div (Nat.two_pow_pos _)]
@@ -716,7 +716,7 @@ theorem testBit_two_pow_mul_add (a : Nat) {b i : Nat} (b_lt : b < 2^i) (j : Nat)
     simp only [Nat.mul_add_div (Nat.two_pow_pos _)]
     simp [Nat.pow_succ, Nat.mul_comm _ 2, Nat.mul_assoc]
   | inr j_ge =>
-    have j_def : j = i + (j-i) := (Nat.add_sub_cancel' j_ge).symm
+    have j_def : j = i + (j-i) := (Nat.add_sub_of_le j_ge).symm
     simp only [
         testBit_eq_decide_div_mod_eq,
         Nat.not_lt_of_le,
