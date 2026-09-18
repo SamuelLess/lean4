@@ -121,12 +121,6 @@ This normalized a bitvec using `ofFin` to `ofNat`.
 theorem ofFin_eq_ofNat : @BitVec.ofFin w (Fin.mk x lt) = BitVec.ofNat w x := by
   simp only [BitVec.ofNat, Fin.Internal.ofNat_eq_ofNat, Fin.ofNat, lt, Nat.mod_eq_of_lt]
 
-/-- Prove nonequality of bitvectors in terms of nat operations. -/
-theorem toNat_ne_iff_ne {n} {x y : BitVec n} : x.toNat ≠ y.toNat ↔ x ≠ y := by
-  constructor
-  · rintro h rfl; apply h rfl
-  · intro h h_eq; apply h <| eq_of_toNat_eq h_eq
-
 @[simp, grind =] theorem val_toFin (x : BitVec w) : x.toFin.val = x.toNat := rfl
 
 @[bitvec_to_nat] theorem toNat_eq {x y : BitVec n} : x = y ↔ x.toNat = y.toNat :=
@@ -136,6 +130,10 @@ theorem toNat_inj {x y : BitVec n} : x.toNat = y.toNat ↔ x = y := toNat_eq.sym
 
 @[bitvec_to_nat] theorem toNat_ne {x y : BitVec n} : x ≠ y ↔ x.toNat ≠ y.toNat := by
   rw [Ne, toNat_eq]
+
+@[deprecated BitVec.toNat_ne +typeChanged (since := "2026-09-18")]
+theorem toNat_ne_iff_ne {n} {x y : BitVec n} : x.toNat ≠ y.toNat ↔ x ≠ y :=
+  toNat_ne.symm
 
 protected theorem toNat_lt_twoPow_of_le (h : m ≤ n) {x : BitVec m} :
     x.toNat < 2 ^ n := by
@@ -4722,7 +4720,7 @@ theorem msb_umod {x y : BitVec w} :
         have y_le_x : y.toNat ≤ x.toNat := by
           simpa using! x_lt_y
         replace hy : y.toNat ≠ 0 :=
-          toNat_ne_iff_ne.mpr hy
+          toNat_ne.mp hy
         by_cases msb_y : y.toNat < 2 ^ (w - 1)
         · have : x.toNat % y.toNat < y.toNat := Nat.mod_lt _ (by omega)
           omega
