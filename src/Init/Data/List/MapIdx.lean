@@ -325,13 +325,6 @@ theorem mapFinIdx_eq_replicate_iff {l : List α} {f : (i : Nat) → α → (h : 
 theorem mapIdx_nil {f : Nat → α → β} : mapIdx f [] = [] :=
   rfl
 
-theorem mapIdx_go_length {acc : Array β} :
-    length (mapIdx.go f l acc) = length l + acc.size := by
-  induction l generalizing acc with
-  | nil => simp [mapIdx.go]
-  | cons _ _ ih =>
-    simp only [mapIdx.go, ih, Array.size_push, Nat.add_succ, length_cons, Nat.add_comm]
-
 theorem length_mapIdx_go : ∀ {l : List α} {acc : Array β},
     (mapIdx.go f l acc).length = l.length + acc.size
   | [], _ => by simp [mapIdx.go]
@@ -340,6 +333,11 @@ theorem length_mapIdx_go : ∀ {l : List α} {acc : Array β},
     rw [length_mapIdx_go]
     simp
     omega
+
+@[deprecated List.length_mapIdx_go +typeChanged (since := "2026-09-18")]
+theorem mapIdx_go_length {acc : Array β} :
+    length (mapIdx.go f l acc) = length l + acc.size :=
+  length_mapIdx_go
 
 @[simp, grind =] theorem length_mapIdx {l : List α} : (l.mapIdx f).length = l.length := by
   simp [mapIdx, length_mapIdx_go]
