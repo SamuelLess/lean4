@@ -84,9 +84,9 @@ public theorem WeaklyLawfulMonadAttach.pbind_eq_bind
   conv => rhs; rw [← map_attach (x := x)]
   simp [MonadAttach.pbind]
 
+@[deprecated WeaklyLawfulMonadAttach.pbind_eq_bind (since := "2026-10-07")]
 public theorem WeaklyLawfulMonadAttach.pbind_eq_bind'
     [Monad m] [MonadAttach m] [LawfulMonad m] [WeaklyLawfulMonadAttach m]
     {x : m α} {f : α → m β} :
-    MonadAttach.pbind x (fun a _ => f a) = x >>= f := by
-  conv => rhs; rw [← map_attach (x := x)]
-  simp [MonadAttach.pbind]
+    MonadAttach.pbind x (fun a _ => f a) = x >>= f :=
+  WeaklyLawfulMonadAttach.pbind_eq_bind
