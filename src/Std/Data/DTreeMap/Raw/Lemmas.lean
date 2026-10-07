@@ -838,7 +838,7 @@ theorem getKey_eq [TransCmp cmp] [LawfulEqCmp cmp] (h : t.WF) {k : α} (h' : k �
 
 @[simp, grind =]
 theorem getKey!_emptyc {a : α} [Inhabited α] :
-    (∅ : DTreeMap α β cmp).getKey! a = default :=
+    (∅ : Raw α β cmp).getKey! a = default :=
   Impl.getKey!_empty
 
 theorem getKey!_of_isEmpty [TransCmp cmp] [Inhabited α] (h : t.WF) {a : α} :
@@ -903,7 +903,7 @@ theorem getKey!_eq_of_mem [TransCmp cmp] [LawfulEqCmp cmp] [Inhabited α] (h : t
 
 @[simp, grind =]
 theorem getKeyD_emptyc {a : α} {fallback : α} :
-    (∅ : DTreeMap α β cmp).getKeyD a fallback = fallback :=
+    (∅ : Raw α β cmp).getKeyD a fallback = fallback :=
   Impl.getKeyD_empty
 
 theorem getKeyD_of_isEmpty [TransCmp cmp] (h : t.WF) {a fallback : α} :
