@@ -55,13 +55,11 @@ namespace Array
 
 @[simp, grind =] theorem length_toList {xs : Array α} : xs.toList.length = xs.size := rfl
 
-theorem eq_toArray : xs = List.toArray as ↔ xs.toList = as := by
-  cases xs
-  simp
+@[deprecated List.eq_toArray_iff (since := "2026-10-07")]
+theorem eq_toArray : xs = List.toArray as ↔ xs.toList = as := List.eq_toArray_iff
 
-theorem toArray_eq : List.toArray as = xs ↔ as = xs.toList := by
-  cases xs
-  simp
+@[deprecated List.toArray_eq_iff (since := "2026-10-07")]
+theorem toArray_eq : List.toArray as = xs ↔ as = xs.toList := List.toArray_eq_iff
 
 /-! ### empty -/
 
@@ -3581,7 +3579,7 @@ theorem foldr_rel {xs : Array α} {f : α → β → β} {g : α → γ → γ} 
 theorem back?_eq_some_iff {xs : Array α} {a : α} :
     xs.back? = some a ↔ ∃ ys : Array α, xs = ys.push a := by
   rcases xs with ⟨xs⟩
-  simp only [List.back?_toArray, List.getLast?_eq_some_iff, toArray_eq, toList_push]
+  simp only [List.back?_toArray, List.getLast?_eq_some_iff, List.toArray_eq_iff, toList_push]
   constructor
   · rintro ⟨ys, rfl⟩
     exact ⟨ys.toArray, by simp⟩
