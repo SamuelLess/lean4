@@ -194,18 +194,29 @@ theorem Bool.toBitVec_toISize {b : Bool} :
 @[simp] theorem Int64.toInt32_xor (a b : Int64) : (a ^^^ b).toInt32 = a.toInt32 ^^^ b.toInt32 := Int32.toBitVec_inj.1 (by simp)
 @[simp] theorem Int64.toISize_xor (a b : Int64) : (a ^^^ b).toISize = a.toISize ^^^ b.toISize := ISize.toBitVec_inj.1 (by simp)
 
-theorem Int8.not_eq_neg_add (a : Int8) : ~~~a = -a - 1 := Int8.toBitVec_inj.1 (by simpa using BitVec.not_eq_neg_add _)
-theorem Int16.not_eq_neg_add (a : Int16) : ~~~a = -a - 1 := Int16.toBitVec_inj.1 (by simpa using BitVec.not_eq_neg_add _)
-theorem Int32.not_eq_neg_add (a : Int32) : ~~~a = -a - 1 := Int32.toBitVec_inj.1 (by simpa using BitVec.not_eq_neg_add _)
-theorem Int64.not_eq_neg_add (a : Int64) : ~~~a = -a - 1 := Int64.toBitVec_inj.1 (by simpa using BitVec.not_eq_neg_add _)
-theorem ISize.not_eq_neg_add (a : ISize) : ~~~a = -a - 1 := ISize.toBitVec_inj.1 (by simpa using BitVec.not_eq_neg_add _)
+theorem Int8.not_eq_neg_sub (a : Int8) : ~~~a = -a - 1 := Int8.toBitVec_inj.1 (BitVec.not_eq_neg_add _)
+theorem Int16.not_eq_neg_sub (a : Int16) : ~~~a = -a - 1 := Int16.toBitVec_inj.1 (BitVec.not_eq_neg_add _)
+theorem Int32.not_eq_neg_sub (a : Int32) : ~~~a = -a - 1 := Int32.toBitVec_inj.1 (BitVec.not_eq_neg_add _)
+theorem Int64.not_eq_neg_sub (a : Int64) : ~~~a = -a - 1 := Int64.toBitVec_inj.1 (BitVec.not_eq_neg_add _)
+theorem ISize.not_eq_neg_sub (a : ISize) : ~~~a = -a - 1 := ISize.toBitVec_inj.1 (BitVec.not_eq_neg_add _)
 
-@[simp] theorem Int8.toInt_not (a : Int8) : (~~~a).toInt = (-a.toInt - 1).bmod (2 ^ 8) := by simp [Int8.not_eq_neg_add]
-@[simp] theorem Int16.toInt_not (a : Int16) : (~~~a).toInt = (-a.toInt - 1).bmod (2 ^ 16) := by simp [Int16.not_eq_neg_add]
-@[simp] theorem Int32.toInt_not (a : Int32) : (~~~a).toInt = (-a.toInt - 1).bmod (2 ^ 32) := by simp [Int32.not_eq_neg_add]
-@[simp] theorem Int64.toInt_not (a : Int64) : (~~~a).toInt = (-a.toInt - 1).bmod (2 ^ 64) := by simp [Int64.not_eq_neg_add]
+@[deprecated Int8.not_eq_neg_sub (since := "2026-10-07")]
+theorem Int8.not_eq_neg_add (a : Int8) : ~~~a = -a - 1 := Int8.not_eq_neg_sub a
+@[deprecated Int16.not_eq_neg_sub (since := "2026-10-07")]
+theorem Int16.not_eq_neg_add (a : Int16) : ~~~a = -a - 1 := Int16.not_eq_neg_sub a
+@[deprecated Int32.not_eq_neg_sub (since := "2026-10-07")]
+theorem Int32.not_eq_neg_add (a : Int32) : ~~~a = -a - 1 := Int32.not_eq_neg_sub a
+@[deprecated Int64.not_eq_neg_sub (since := "2026-10-07")]
+theorem Int64.not_eq_neg_add (a : Int64) : ~~~a = -a - 1 := Int64.not_eq_neg_sub a
+@[deprecated ISize.not_eq_neg_sub (since := "2026-10-07")]
+theorem ISize.not_eq_neg_add (a : ISize) : ~~~a = -a - 1 := ISize.not_eq_neg_sub a
+
+@[simp] theorem Int8.toInt_not (a : Int8) : (~~~a).toInt = (-a.toInt - 1).bmod (2 ^ 8) := by simp [Int8.not_eq_neg_sub]
+@[simp] theorem Int16.toInt_not (a : Int16) : (~~~a).toInt = (-a.toInt - 1).bmod (2 ^ 16) := by simp [Int16.not_eq_neg_sub]
+@[simp] theorem Int32.toInt_not (a : Int32) : (~~~a).toInt = (-a.toInt - 1).bmod (2 ^ 32) := by simp [Int32.not_eq_neg_sub]
+@[simp] theorem Int64.toInt_not (a : Int64) : (~~~a).toInt = (-a.toInt - 1).bmod (2 ^ 64) := by simp [Int64.not_eq_neg_sub]
 @[simp] theorem ISize.toInt_not (a : ISize) : (~~~a).toInt = (-a.toInt - 1).bmod (2 ^ System.Platform.numBits) := by
-  simp [ISize.not_eq_neg_add, toInt_neg]
+  simp [ISize.not_eq_neg_sub, toInt_neg]
 
 @[simp] theorem Int16.toInt8_not (a : Int16) : (~~~a).toInt8 = ~~~a.toInt8 := Int8.toBitVec_inj.1 (by simp)
 @[simp] theorem Int32.toInt8_not (a : Int32) : (~~~a).toInt8 = ~~~a.toInt8 := Int8.toBitVec_inj.1 (by simp)
@@ -264,12 +275,6 @@ theorem Int16.neg_eq_not_add (a : Int16) : -a = ~~~a + 1 := Int16.toBitVec_inj.1
 theorem Int32.neg_eq_not_add (a : Int32) : -a = ~~~a + 1 := Int32.toBitVec_inj.1 (BitVec.neg_eq_not_add _)
 theorem Int64.neg_eq_not_add (a : Int64) : -a = ~~~a + 1 := Int64.toBitVec_inj.1 (BitVec.neg_eq_not_add _)
 theorem ISize.neg_eq_not_add (a : ISize) : -a = ~~~a + 1 := ISize.toBitVec_inj.1 (BitVec.neg_eq_not_add _)
-
-theorem Int8.not_eq_neg_sub (a : Int8) : ~~~a = -a - 1 := Int8.toBitVec_inj.1 (BitVec.not_eq_neg_add _)
-theorem Int16.not_eq_neg_sub (a : Int16) : ~~~a = -a - 1 := Int16.toBitVec_inj.1 (BitVec.not_eq_neg_add _)
-theorem Int32.not_eq_neg_sub (a : Int32) : ~~~a = -a - 1 := Int32.toBitVec_inj.1 (BitVec.not_eq_neg_add _)
-theorem Int64.not_eq_neg_sub (a : Int64) : ~~~a = -a - 1 := Int64.toBitVec_inj.1 (BitVec.not_eq_neg_add _)
-theorem ISize.not_eq_neg_sub (a : ISize) : ~~~a = -a - 1 := ISize.toBitVec_inj.1 (BitVec.not_eq_neg_add _)
 
 protected theorem Int8.or_assoc (a b c : Int8) : a ||| b ||| c = a ||| (b ||| c) := Int8.toBitVec_inj.1 (BitVec.or_assoc _ _ _)
 protected theorem Int16.or_assoc (a b c : Int16) : a ||| b ||| c = a ||| (b ||| c) := Int16.toBitVec_inj.1 (BitVec.or_assoc _ _ _)
