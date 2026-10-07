@@ -635,10 +635,11 @@ theorem get_none_eq_iff_true {h} : (none : Option α).get h = a ↔ True := by
 theorem guard_def (p : α → Bool) :
     Option.guard p = fun x => if p x then some x else none := rfl
 
-@[grind =] theorem guard_apply : Option.guard p x = if p x then some x else none := rfl
-
-theorem guard_eq_ite {p : α → Bool} {x : α} :
+@[grind =] theorem guard_eq_ite {p : α → Bool} {x : α} :
     Option.guard p x = if p x then some x else none := rfl
+
+@[deprecated Option.guard_eq_ite (since := "2026-10-07")]
+theorem guard_apply : Option.guard p x = if p x then some x else none := guard_eq_ite
 
 theorem guard_eq_filter {p : α → Bool} {x : α} :
     Option.guard p x = Option.filter p (some x) := rfl

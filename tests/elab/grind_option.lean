@@ -30,8 +30,8 @@ example : max (some 7) none = min (some 13) (some 7) := by grind?
 
 /--
 info: Try these:
-  [apply] grind only [= Option.guard_apply]
-  [apply] grind => instantiate only [= Option.guard_apply]
+  [apply] grind only [= Option.guard_eq_ite]
+  [apply] grind => instantiate only [= Option.guard_eq_ite]
 -/
 #guard_msgs in
 example : Option.guard (· ≤ 7) 3 = some 3 := by grind?
