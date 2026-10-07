@@ -77,7 +77,7 @@ public theorem toList_mkSlice_rco {xs : List α} {lo hi : Nat} :
   simp only [Std.Rco.Sliceable.mkSlice, toSlice, ListSlice.toList_eq]
   by_cases h : lo < hi
   · have : lo ≤ hi := by omega
-    simp [h, List.take_drop, Nat.add_sub_cancel' ‹_›, ← List.take_eq_take_min]
+    simp [h, List.take_drop, Nat.add_sub_of_le ‹_›, ← List.take_eq_take_min]
   · have : min hi xs.length ≤ lo := by omega
     simp [h, Nat.min_eq_right this]
 

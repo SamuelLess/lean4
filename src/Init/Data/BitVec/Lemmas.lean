@@ -5424,7 +5424,7 @@ private theorem mul_mod_add_lt {a b s w : Nat} (hs : s ≤ w) (hb : b < 2 ^ s) :
   obtain ⟨q, hq⟩ := two_pow_dvd_mul_mod (a := a) hs
   have h1 : (a * 2 ^ s) % 2 ^ w < 2 ^ w := Nat.mod_lt _ (Nat.two_pow_pos _)
   rw [hq] at h1 ⊢
-  have hw : 2 ^ w = 2 ^ s * 2 ^ (w - s) := by rw [← Nat.pow_add, Nat.add_sub_cancel' hs]
+  have hw : 2 ^ w = 2 ^ s * 2 ^ (w - s) := by rw [← Nat.pow_add, Nat.add_sub_of_le hs]
   rw [hw] at h1 ⊢
   have hq' : q < 2 ^ (w - s) := Nat.lt_of_mul_lt_mul_left h1
   calc 2 ^ s * q + b < 2 ^ s * q + 2 ^ s := by omega

@@ -40,7 +40,7 @@ open Nat
 @[simp, grind =] theorem mem_range'_1 : m ∈ range' s n ↔ s ≤ m ∧ m < s + n := by
   simp [mem_range']; exact ⟨
     fun ⟨i, h, e⟩ => e ▸ ⟨Nat.le_add_right .., Nat.add_lt_add_left h _⟩,
-    fun ⟨h₁, h₂⟩ => ⟨m - s, Nat.sub_lt_left_of_lt_add h₁ h₂, (Nat.add_sub_cancel' h₁).symm⟩⟩
+    fun ⟨h₁, h₂⟩ => ⟨m - s, Nat.sub_lt_left_of_lt_add h₁ h₂, (Nat.add_sub_of_le h₁).symm⟩⟩
 
 @[grind =]
 theorem getLast?_range' {n : Nat} : (range' s n).getLast? = if n = 0 then none else some (s + n - 1) := by
@@ -88,7 +88,7 @@ theorem nodup_range' {s n : Nat} (step := 1) (h : 0 < step := by simp) : Nodup (
 
 theorem map_sub_range' {a s : Nat} (h : a ≤ s) (n : Nat) :
     map (· - a) (range' s n step) = range' (s - a) n step := by
-  conv => lhs; rw [← Nat.add_sub_cancel' h]
+  conv => lhs; rw [← Nat.add_sub_of_le h]
   rw [← map_add_range', map_map, (?_ : _∘_ = _), map_id]
   funext x; apply Nat.add_sub_cancel_left
 

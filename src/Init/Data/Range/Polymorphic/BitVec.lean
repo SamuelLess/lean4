@@ -78,7 +78,7 @@ instance : LawfulUpwardEnumerableLE (BitVec n) where
     apply Iff.intro
     · intro hle
       refine ⟨y.toNat - x.toNat, ?_⟩
-      apply Exists.intro <;> simp [Nat.add_sub_cancel' hle, BitVec.toNat_lt_twoPow_of_le]
+      apply Exists.intro <;> simp [Nat.add_sub_of_le hle, BitVec.toNat_lt_twoPow_of_le]
     · rintro ⟨n, hn, rfl⟩
       simp [BitVec.ofNatLT]
 
