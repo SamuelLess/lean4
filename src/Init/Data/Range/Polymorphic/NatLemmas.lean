@@ -1907,8 +1907,8 @@ theorem toList_rio_eq_cons {n : Nat} (h : 0 < n) :
   simp [h]
 
 @[simp]
-theorem toList_rio_zero_right_eq_nil {m : Nat} :
-    (m...0).toList = [] := by
+theorem toList_rio_zero_right_eq_nil :
+    (*...0).toList = [] := by
   simp
 
 theorem map_add_toList_rio {n k : Nat} :
@@ -2062,8 +2062,8 @@ theorem toArray_rio_eq_singleton_append {n : Nat} (h : 0 < n) :
   simp [h]
 
 @[simp]
-theorem toArray_rio_zero_right_eq_nil {m : Nat} :
-    (m...0).toArray = #[] := by
+theorem toArray_rio_zero_right_eq_nil :
+    (*...0).toArray = #[] := by
   simp
 
 theorem map_add_toArray_rio {n k : Nat} :
