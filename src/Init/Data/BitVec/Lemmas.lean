@@ -533,15 +533,6 @@ theorem msb_eq_getLsbD_last (x : BitVec w) :
 theorem getMsbD_last (x : BitVec w) : x.getMsbD 0 = decide (2 ^ (w-1) ≤ x.toNat) := by
   rw [← BitVec.msb, msb_eq_decide]
 
-theorem toNat_ge_of_msb_true {x : BitVec n} (p : BitVec.msb x = true) : x.toNat ≥ 2^(n-1) := by
-  match n with
-  | 0 =>
-    simp [BitVec.msb, BitVec.getMsbD] at p
-  | n + 1 =>
-    simp only [msb_eq_decide, Nat.add_one_sub_one, decide_eq_true_eq] at p
-    simp only [Nat.add_sub_cancel]
-    exact p
-
 @[grind _=_] theorem msb_eq_getMsbD_zero (x : BitVec w) : x.msb = x.getMsbD 0 := by
   cases w <;> simp [getMsbD_eq_getLsbD, msb_eq_getLsbD_last]
 
@@ -744,6 +735,10 @@ theorem le_toNat_of_msb_true {w : Nat} {x : BitVec w} (h : x.msb = true) : 2 ^ (
   have rt := @msb_eq_decide w x
   simp only [h, true_eq_decide_iff] at rt
   omega
+
+@[deprecated BitVec.le_toNat_of_msb_true (since := "2026-10-07")]
+theorem toNat_ge_of_msb_true {x : BitVec n} (p : BitVec.msb x = true) : x.toNat ≥ 2^(n-1) :=
+  le_toNat_of_msb_true p
 
 /--
 `x.toInt` is less than `2^(w-1)`.
@@ -2007,8 +2002,8 @@ theorem toInt_shiftLeftZeroExtend {x : BitVec w} :
       simp only [toInt_shiftLeft, toNat_setWidth, Nat.lt_add_right_iff_pos,
         Nat.zero_lt_succ, toNat_mod_cancel_of_lt, Int.bmod_def]
       by_cases hmsb : x.msb
-      · have hge := toNat_ge_of_msb_true hmsb
-        simp only [Nat.add_one_sub_one, ge_iff_le] at hge
+      · have hge := le_toNat_of_msb_true hmsb
+        simp only [Nat.add_one_sub_one] at hge
         rw [Int.emod_eq_of_lt (by norm_cast; rw [Nat.shiftLeft_eq]; omega) (by omega)]
         rw_mod_cast [← Nat.add_assoc]
         rw [show (2 ^ (w + 1 + n + 1) + 1) / 2 = 2 ^ (w + 1 + n) by omega, Int.natCast_pow,
@@ -4568,7 +4563,7 @@ theorem pos_of_msb {x : BitVec w} (hx : x.msb = true) : 0#w < x := by
 theorem lt_of_msb_false_of_msb_true {x y : BitVec w} (hx : x.msb = false) (hy : y.msb = true) :
     x < y := by
   simp only [LT.lt]
-  have := toNat_ge_of_msb_true hy
+  have := le_toNat_of_msb_true hy
   have := toNat_lt_of_msb_false hx
   simp
   omega
