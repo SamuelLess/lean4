@@ -106,11 +106,11 @@ theorem Rci.toArray_iter [UpwardEnumerable α]
     r.iter.toArray = r.toArray := by
  rfl
 
-@[simp]
+@[deprecated Std.Rci.toArray_iter (since := "2026-10-07")]
 theorem Rci.toArray_iter_eq_toArray [UpwardEnumerable α]
     [Rxi.IsAlwaysFinite α] [LawfulUpwardEnumerable α] {r : Rci α} :
-    r.iter.toArray = r.toArray := by
- rfl
+    r.iter.toArray = r.toArray :=
+  Rci.toArray_iter
 
 @[simp]
 theorem Rci.length_iter [UpwardEnumerable α]
@@ -118,7 +118,7 @@ theorem Rci.length_iter [UpwardEnumerable α]
     [Rxi.HasSize α] [Rxi.LawfulHasSize α]
     {r : Rci α} :
     r.iter.length = r.size := by
-  rw [← size_toArray, ← toArray_iter_eq_toArray, Iter.size_toArray_eq_length]
+  rw [← size_toArray, ← toArray_iter, Iter.size_toArray_eq_length]
 
 set_option linter.defProp false in
 @[deprecated Rci.length_iter (since := "2026-01-28")]
@@ -142,11 +142,11 @@ theorem Roc.toArray_iter [LE α] [DecidableLE α] [UpwardEnumerable α]
     r.iter.toArray = r.toArray := by
  rfl
 
-@[simp]
+@[deprecated Std.Roc.toArray_iter (since := "2026-10-07")]
 theorem Roc.toArray_iter_eq_toArray [LE α] [DecidableLE α] [UpwardEnumerable α]
     [LawfulUpwardEnumerableLE α] [Rxc.IsAlwaysFinite α] [LawfulUpwardEnumerable α] {r : Roc α} :
-    r.iter.toArray = r.toArray := by
- rfl
+    r.iter.toArray = r.toArray :=
+  Roc.toArray_iter
 
 @[simp]
 theorem Roc.length_iter [LE α] [DecidableLE α] [UpwardEnumerable α]
@@ -154,7 +154,7 @@ theorem Roc.length_iter [LE α] [DecidableLE α] [UpwardEnumerable α]
     [Rxc.HasSize α] [Rxc.LawfulHasSize α]
     {r : Roc α} :
     r.iter.length = r.size := by
-  rw [← size_toArray, ← toArray_iter_eq_toArray, Iter.size_toArray_eq_length]
+  rw [← size_toArray, ← toArray_iter, Iter.size_toArray_eq_length]
 
 set_option linter.defProp false in
 @[deprecated Roc.length_iter (since := "2026-01-28")]
@@ -178,11 +178,11 @@ theorem Roo.toArray_iter [LT α] [DecidableLT α] [UpwardEnumerable α]
     r.iter.toArray = r.toArray := by
  rfl
 
-@[simp]
+@[deprecated Std.Roo.toArray_iter (since := "2026-10-07")]
 theorem Roo.toArray_iter_eq_toArray [LT α] [DecidableLT α] [UpwardEnumerable α]
     [LawfulUpwardEnumerableLT α] [Rxo.IsAlwaysFinite α] [LawfulUpwardEnumerable α] {r : Roo α} :
-    r.iter.toArray = r.toArray := by
- rfl
+    r.iter.toArray = r.toArray :=
+  Roo.toArray_iter
 
 @[simp]
 theorem Roo.length_iter [LT α] [DecidableLT α] [UpwardEnumerable α]
@@ -190,7 +190,7 @@ theorem Roo.length_iter [LT α] [DecidableLT α] [UpwardEnumerable α]
     [Rxo.HasSize α] [Rxo.LawfulHasSize α]
     {r : Roo α} :
     r.iter.length = r.size := by
-  rw [← size_toArray, ← toArray_iter_eq_toArray, Iter.size_toArray_eq_length]
+  rw [← size_toArray, ← toArray_iter, Iter.size_toArray_eq_length]
 
 set_option linter.defProp false in
 @[deprecated Roo.length_iter (since := "2026-01-28")]
