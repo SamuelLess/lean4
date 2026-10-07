@@ -4757,7 +4757,7 @@ theorem msb_umod {x y : BitVec w} :
               apply Nat.div_pos y_le_x
               omega
           have : x.toNat % y.toNat ≤ x.toNat - y.toNat := by
-            rw [Nat.mod_eq_sub]; omega
+            rw [Nat.mod_def]; omega
           omega
 
 theorem toInt_umod {x y : BitVec w} :

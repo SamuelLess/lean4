@@ -825,9 +825,9 @@ theorem add_mod (a b n : Nat) : (a + b) % n = ((a % n) + (b % n)) % n := by
     | zero => simp_all
     | succ k => omega
 
-theorem mod_eq_sub (x w : Nat) : x % w = x - w * (x / w) := by
-  conv => rhs; congr; rw [← mod_add_div x w]
-  simp
+@[deprecated Nat.mod_def (since := "2026-10-07")]
+theorem mod_eq_sub (x w : Nat) : x % w = x - w * (x / w) :=
+  Nat.mod_def x w
 
 theorem div_dvd_div {m n k : Nat} : k ∣ m → m ∣ n → m / k ∣ n / k := by
   refine (Nat.eq_zero_or_pos k).elim (by rintro rfl; simp) (fun hk => ?_)
