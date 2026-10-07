@@ -1349,12 +1349,9 @@ theorem suffix_append_self_iff {l₁ l₂ l₃ : List α} : l₁ ++ l₃ <:+ l�
   · rintro ⟨t, h⟩
     exact ⟨t, by rw [← List.append_assoc, h]⟩
 
-theorem prefix_self_append_iff {l₁ l₂ l₃ : List α} : l₃ ++ l₁ <+: l₃ ++ l₂ ↔ l₁ <+: l₂ := by
-  constructor
-  · rintro ⟨t, h⟩
-    exact ⟨t, List.append_cancel_left (by rwa [List.append_assoc] at h)⟩
-  · rintro ⟨t, h⟩
-    exact ⟨t, by rw [List.append_assoc, h]⟩
+@[deprecated List.prefix_append_right_inj (since := "2026-10-07")]
+theorem prefix_self_append_iff {l₁ l₂ l₃ : List α} : l₃ ++ l₁ <+: l₃ ++ l₂ ↔ l₁ <+: l₂ :=
+  prefix_append_right_inj l₃
 
 theorem suffix_append_inj_of_length_eq {l₁ l₂ s₁ s₂ : List α} (hs : s₁.length = s₂.length) :
     l₁ ++ s₁ <:+ l₂ ++ s₂ ↔ l₁ <:+ l₂ ∧ s₁ = s₂ := by
