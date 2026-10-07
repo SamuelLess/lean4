@@ -628,8 +628,9 @@ theorem mul_le_add_right {m k n : Nat} : k * m ≤ m + n ↔ (k-1) * m ≤ n := 
   | succ k =>
     simp [succ_mul, Nat.add_comm _ m, Nat.add_le_add_iff_left]
 
-theorem succ_mul_succ_eq (a b : Nat) : succ a * succ b = a * b + a + b + 1 := by
-  rw [mul_succ, succ_mul, Nat.add_right_comm _ a]; rfl
+@[deprecated Nat.succ_mul_succ (since := "2026-10-07")]
+theorem succ_mul_succ_eq (a b : Nat) : succ a * succ b = a * b + a + b + 1 :=
+  Nat.succ_mul_succ a b
 
 protected theorem mul_self_sub_mul_self_eq (a b : Nat) : a * a - b * b = (a + b) * (a - b) := by
   rw [Nat.mul_sub_left_distrib, Nat.right_distrib, Nat.right_distrib, Nat.mul_comm b a,
