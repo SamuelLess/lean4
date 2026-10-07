@@ -745,12 +745,6 @@ theorem one_emod {b : Int} : 1 % b = if b.natAbs = 1 then 0 else 1 := by
 
 /-! ### properties of `/` and `%` -/
 
-theorem mul_ediv_cancel_of_dvd {a b : Int} (H : b ∣ a) : b * (a / b) = a :=
-  mul_ediv_cancel_of_emod_eq_zero (emod_eq_zero_of_dvd H)
-
-theorem ediv_mul_cancel_of_dvd {a b : Int} (H : b ∣ a) : a / b * b = a :=
-  ediv_mul_cancel_of_emod_eq_zero (emod_eq_zero_of_dvd H)
-
 theorem emod_two_eq (x : Int) : x % 2 = 0 ∨ x % 2 = 1 := by omega
 
 theorem add_emod_eq_add_emod_left {m n k : Int} (i : Int)
@@ -838,7 +832,7 @@ theorem tdiv_cases (n m : Int) : n.tdiv m =
 theorem neg_emod {a b : Int} : (-a) % b = if b ∣ a then 0 else b.natAbs - (a % b) := by
   rw [emod_def, emod_def, neg_ediv, Int.mul_sub, Int.mul_neg]
   split <;> rename_i h
-  · simp [mul_ediv_cancel_of_dvd h]
+  · simp [Int.mul_ediv_cancel' h]
   · simp
     omega
 
@@ -1556,11 +1550,13 @@ theorem tdiv_dvd_tdiv : ∀ {a b c : Int}, a ∣ b → b ∣ c → b.tdiv a ∣ 
 
 -- Analogues of statements about `emod` and `ediv` from above.
 
+@[deprecated Int.mul_tdiv_cancel' +typeChanged (since := "2026-10-07")]
 theorem mul_tdiv_cancel_of_dvd {a b : Int} (H : b ∣ a) : b * (a.tdiv b) = a :=
-  mul_tdiv_cancel_of_tmod_eq_zero (tmod_eq_zero_of_dvd H)
+  Int.mul_tdiv_cancel' H
 
+@[deprecated Int.tdiv_mul_cancel (since := "2026-10-07")]
 theorem tdiv_mul_cancel_of_dvd {a b : Int} (H : b ∣ a) : a.tdiv b * b = a :=
-  tdiv_mul_cancel_of_tmod_eq_zero (tmod_eq_zero_of_dvd H)
+  Int.tdiv_mul_cancel H
 
 theorem tmod_two_eq (x : Int) : x.tmod 2 = -1 ∨ x.tmod 2 = 0 ∨ x.tmod 2 = 1 := by
   have h₁ : -2 < x.tmod 2 := Int.lt_tmod_of_pos x (by decide)
@@ -2343,11 +2339,13 @@ theorem fdiv_dvd_fdiv : ∀ {a b c : Int}, a ∣ b → b ∣ c → b.fdiv a ∣ 
 
 -- Analogues of properties about `ediv` and `emod` from above.
 
+@[deprecated Int.mul_fdiv_cancel' +typeChanged (since := "2026-10-07")]
 theorem mul_fdiv_cancel_of_dvd {a b : Int} (H : b ∣ a) : b * (a.fdiv b) = a :=
-  mul_fdiv_cancel_of_fmod_eq_zero (fmod_eq_zero_of_dvd H)
+  Int.mul_fdiv_cancel' H
 
+@[deprecated Int.fdiv_mul_cancel (since := "2026-10-07")]
 theorem fdiv_mul_cancel_of_dvd {a b : Int} (H : b ∣ a) : a.fdiv b * b = a :=
-  fdiv_mul_cancel_of_fmod_eq_zero (fmod_eq_zero_of_dvd H)
+  Int.fdiv_mul_cancel H
 
 theorem fmod_two_eq (x : Int) : x.fmod 2 = 0 ∨ x.fmod 2 = 1 := by
   have h₁ : 0 ≤ x.fmod 2 := Int.fmod_nonneg_of_pos _ (by decide)

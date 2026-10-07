@@ -312,6 +312,14 @@ protected theorem ediv_mul_cancel {a b : Int} (H : b ∣ a) : a / b * b = a :=
 protected theorem mul_ediv_cancel' {a b : Int} (H : a ∣ b) : a * (b / a) = b := by
   rw [Int.mul_comm, Int.ediv_mul_cancel H]
 
+@[deprecated Int.mul_ediv_cancel' +typeChanged (since := "2026-10-07")]
+theorem mul_ediv_cancel_of_dvd {a b : Int} (H : b ∣ a) : b * (a / b) = a :=
+  Int.mul_ediv_cancel' H
+
+@[deprecated Int.ediv_mul_cancel (since := "2026-10-07")]
+theorem ediv_mul_cancel_of_dvd {a b : Int} (H : b ∣ a) : a / b * b = a :=
+  Int.ediv_mul_cancel H
+
 theorem emod_pos_of_not_dvd {a b : Int} (h : ¬ a ∣ b) : a = 0 ∨ 0 < b % a := by
   rw [dvd_iff_emod_eq_zero] at h
   by_cases w : a = 0
