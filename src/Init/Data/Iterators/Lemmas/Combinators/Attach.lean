@@ -61,13 +61,6 @@ theorem Iter.toListRev_attachWith [Iterator α Id β]
         (fun out h => hP out (isPlausibleIndirectOutput_of_mem_toListRev h)) := by
   simp [toListRev_eq]
 
-@[simp]
-theorem Iter.unattach_toArray_attachWith [Iterator α Id β]
-    {it : Iter (α := α) β} {hP}
-    [Finite α Id] :
-    (it.attachWith P hP).toListRev.unattach = it.toListRev := by
-  simp [toListRev_eq]
-
 @[cbv_eval, simp]
 theorem Iter.toArray_attachWith [Iterator α Id β]
     {it : Iter (α := α) β} {hP}
@@ -78,6 +71,12 @@ theorem Iter.toArray_attachWith [Iterator α Id β]
       (fun out h => hP out (isPlausibleIndirectOutput_of_mem_toArray h))).toList by
     simpa only [Array.toList_inj]
   simp [Iter.toList_toArray]
+
+theorem Iter.unattach_toArray_attachWith [Iterator α Id β]
+    {it : Iter (α := α) β} {hP}
+    [Finite α Id] :
+    (it.attachWith P hP).toArray.unattach = it.toArray := by
+  simp
 
 @[simp]
 theorem Iter.length_attachWith [Iterator α Id β]
