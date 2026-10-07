@@ -89,8 +89,11 @@ theorem mk_val (i : Fin n) : (⟨i, i.isLt⟩ : Fin n) = i := Fin.eta ..
   rw [val_ofNat, Nat.mod_eq_of_lt]
   exact x.2
 
-@[simp] theorem mod_val (a b : Fin n) : (a % b).val = a.val % b.val :=
-  rfl
+attribute [simp] val_mod
+
+@[deprecated Fin.val_mod (since := "2026-10-07")]
+theorem mod_val (a b : Fin n) : (a % b).val = a.val % b.val :=
+  val_mod a b
 
 @[simp] theorem div_val (a b : Fin n) : (a / b).val = a.val / b.val :=
   rfl
