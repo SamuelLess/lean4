@@ -2936,12 +2936,10 @@ theorem ediv_lt_self_of_pos_of_ne_one {x y : Int} (hx : 0 < x) (hy : y ≠ 1) :
   · have := @Int.ediv_nonpos_of_nonneg_of_nonpos x y (by omega) (by omega)
     omega
 
+@[deprecated Int.ediv_nonneg (since := "2026-10-07")]
 theorem ediv_nonneg_of_nonneg_of_nonneg {x y : Int} (hx : 0 ≤ x) (hy : 0 ≤ y) :
-    0 ≤ x / y := by
-  obtain ⟨xn, rfl⟩ := Int.eq_ofNat_of_zero_le (a := x) (by omega)
-  obtain ⟨yn, rfl⟩ := Int.eq_ofNat_of_zero_le (a := y) (by omega)
-  rw [← Int.natCast_ediv]
-  exact natCast_nonneg (xn / yn)
+    0 ≤ x / y :=
+  Int.ediv_nonneg hx hy
 
 /--  When both x and y are negative we need stricter bounds on x and y
   to establish the upper bound of x/y, i.e., x / y < x.natAbs.

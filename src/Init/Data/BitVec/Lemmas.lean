@@ -4943,7 +4943,7 @@ theorem neg_two_pow_le_toInt_ediv {x y : BitVec w} :
     - 2 ^ (w - 1) ≤ x.toInt / y.toInt := by
   have xlt := @toInt_lt w x; have lex := @le_toInt w x
   by_cases hx : 0 ≤ x.toInt <;> by_cases hy : 0 ≤ y.toInt
-  · have := Int.ediv_nonneg_of_nonneg_of_nonneg (x := x.toInt) (y := y.toInt) hx hy
+  · have := Int.ediv_nonneg (a := x.toInt) (b := y.toInt) hx hy
     omega
   · have := Int.neg_self_le_ediv_of_nonneg_of_nonpos (x := x.toInt) (y := y.toInt) hx (by omega)
     omega
