@@ -223,7 +223,7 @@ theorem isValidUTF8_of_isAsciiByte (ba : ByteArray) (s : ba.data.all isAsciiByte
   rw [List.utf8Encode]
   simp only [List.flatMap_map]
   have is_ascii : ∀ (x : UInt8), x ∈ ba.data.toList → x < 128 := by
-    let is_ascii := Array.all_eq_true_iff_forall_mem.mp s
+    let is_ascii := Array.all_eq_true'.mp s
     simp [isAsciiByte] at is_ascii
     intro x hx
     exact is_ascii x (by simp_all)

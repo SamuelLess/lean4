@@ -694,9 +694,6 @@ theorem all_iff_forall {p : α → Bool} {as : Array α} {start stop} :
   · rintro w x ⟨i, h, rfl⟩
     exact w i h
 
-theorem all_eq_true_iff_forall_mem {xs : Array α} : xs.all p ↔ ∀ x, x ∈ xs → p x := by
-  simp only [← all_toList, List.all_eq_true, mem_def]
-
 /-- Variant of `anyM_toArray` with a side condition on `stop`. -/
 @[simp] theorem _root_.List.anyM_toArray' [Monad m] [LawfulMonad m] {p : α → m Bool} {l : List α} {stop}
     (h : stop = l.toArray.size) :
@@ -756,6 +753,9 @@ theorem all_eq_true' {p : α → Bool} {as : Array α} :
     as.all p = true ↔ (∀ x, x ∈ as → p x) := by
   cases as
   simp
+
+@[deprecated Array.all_eq_true' (since := "2026-10-07")]
+theorem all_eq_true_iff_forall_mem {xs : Array α} : xs.all p ↔ ∀ x, x ∈ xs → p x := all_eq_true'
 
 /-- Variant of `all_eq_false` in terms of membership rather than an array index. -/
 theorem all_eq_false' {p : α → Bool} {as : Array α} :

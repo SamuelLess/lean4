@@ -206,7 +206,7 @@ theorem unsat_iff_not_sat {f : CNF α} : Unsat f ↔ ∀ a, ¬Sat a f := by
 
 theorem sat_iff_all_mem_sat {f : CNF α} {a : α → Bool} : Sat a f ↔ ∀ c ∈ f, Clause.Sat a c := by
   simp only [sat_def, Clause.sat_def, eval, Internal.mem_iff]
-  rw [Array.all_eq_true_iff_forall_mem]
+  rw [Array.all_eq_true']
 
 theorem sat_of_all_mem_sat {f : CNF α} {a : α → Bool} : (∀ c ∈ f, Clause.Sat a c) → Sat a f := by
   simp [sat_iff_all_mem_sat]

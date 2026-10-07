@@ -1162,11 +1162,6 @@ theorem all_eq_not_any_not {p : α → Bool} {xs : Vector α n} :
   rw [Bool.eq_false_iff, Ne, all_eq_true]
   simp
 
-theorem all_eq_true_iff_forall_mem {xs : Vector α n} : xs.all p ↔ ∀ x, x ∈ xs → p x := by
-  rcases xs with ⟨xs, rfl⟩
-  simp only [all_mk, Array.all_eq_true_iff_forall_mem]
-  simp
-
 /-- Variant of `any_eq_true` in terms of membership rather than an array index. -/
 theorem any_eq_true' {p : α → Bool} {xs : Vector α n} :
     xs.any p = true ↔ (∃ x, x ∈ xs ∧ p x) := by
@@ -1187,6 +1182,10 @@ theorem all_eq_true' {p : α → Bool} {xs : Vector α n} :
   rcases xs with ⟨xs, rfl⟩
   simp only [all_mk, Array.all_eq_true']
   simp
+
+@[deprecated Vector.all_eq_true' (since := "2026-10-07")]
+theorem all_eq_true_iff_forall_mem {xs : Vector α n} : xs.all p ↔ ∀ x, x ∈ xs → p x :=
+  all_eq_true'
 
 /-- Variant of `all_eq_false` in terms of membership rather than an array index. -/
 theorem all_eq_false' {p : α → Bool} {xs : Vector α n} :
