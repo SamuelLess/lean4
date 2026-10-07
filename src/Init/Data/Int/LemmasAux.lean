@@ -66,8 +66,6 @@ theorem natCast_ne_zero_iff_pos {n : Nat} : (n : Int) ≠ 0 ↔ 0 < n := by omeg
 
 theorem natCast_succ_pos (n : Nat) : 0 < (n.succ : Int) := natCast_pos.2 n.succ_pos
 
-@[simp, norm_cast] theorem cast_id {n : Int} : Int.cast n = n := rfl
-
 @[simp] theorem ble'_eq_true (a b : Int) : (Int.ble' a b = true) = (a ≤ b) := by
   cases a <;> cases b <;> simp [Int.ble'] <;> omega
 

@@ -454,7 +454,10 @@ instance : IntCast Int where intCast n := n
 protected def Int.cast {R : Type u} [IntCast R] : Int → R :=
   IntCast.intCast
 
-@[simp] theorem Int.cast_eq (x : Int) : Int.cast x = x := rfl
+@[simp, norm_cast] theorem Int.cast_id {n : Int} : Int.cast n = n := rfl
+
+@[deprecated Int.cast_id (since := "2026-10-07")]
+theorem Int.cast_eq (x : Int) : Int.cast x = x := Int.cast_id
 
 -- see the notes about coercions into arbitrary types in the module doc-string
 instance [IntCast R] : CoeTail Int R where coe := Int.cast
