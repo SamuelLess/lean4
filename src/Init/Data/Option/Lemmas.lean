@@ -103,6 +103,10 @@ theorem eq_some_unique {o : Option α} {a b : α} (ha : o = some a) (hb : o = so
   | some _, _, H => ((H _).1 rfl).symm
   | _, some _, H => (H _).2 rfl
 
+@[deprecated Option.ext (since := "2026-10-07")]
+theorem eq_of_eq_some {α : Type u} : ∀ {x y : Option α}, (∀ z, x = some z ↔ y = some z) → x = y :=
+  Option.ext
+
 theorem eq_none_iff_forall_ne_some : o = none ↔ ∀ a, o ≠ some a := by
   cases o <;> simp
 
