@@ -3522,7 +3522,7 @@ theorem insertListIfNew_perm_insertList [BEq α] [EquivBEq α] {l₁ l₂ : List
       rw [getEntry?_cons]
       by_cases hk : k == k'
       · simp only [hk, true_and, Bool.not_eq_false] at h
-        suffices (getEntry? k' l₁).isSome by simp [Option.or_eq_left_of_isSome this]
+        suffices (getEntry? k' l₁).isSome by simp [Option.or_of_isSome this]
         rwa [← containsKey_eq_isSome_getEntry?, ← containsKey_congr hk]
       · simp [hk]
 
