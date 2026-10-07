@@ -22,7 +22,10 @@ namespace Int
 
 /-! ### miscellaneous lemmas -/
 
-@[simp] theorem natCast_le_zero : {n : Nat} → (n : Int) ≤ 0 ↔ n = 0 := by omega
+@[simp high] theorem natCast_nonpos_iff {n : Nat} : (n : Int) ≤ 0 ↔ n = 0 := by omega
+
+@[deprecated Int.natCast_nonpos_iff (since := "2026-10-07")]
+theorem natCast_le_zero : {n : Nat} → (n : Int) ≤ 0 ↔ n = 0 := natCast_nonpos_iff
 
 @[simp] protected theorem neg_nonpos_iff (i : Int) : -i ≤ 0 ↔ 0 ≤ i := by omega
 
@@ -62,8 +65,6 @@ theorem natCast_ne_zero {n : Nat} : (n : Int) ≠ 0 ↔ n ≠ 0 := by omega
 theorem natCast_ne_zero_iff_pos {n : Nat} : (n : Int) ≠ 0 ↔ 0 < n := by omega
 
 theorem natCast_succ_pos (n : Nat) : 0 < (n.succ : Int) := natCast_pos.2 n.succ_pos
-
-@[simp high] theorem natCast_nonpos_iff {n : Nat} : (n : Int) ≤ 0 ↔ n = 0 := by omega
 
 @[simp, norm_cast] theorem cast_id {n : Int} : Int.cast n = n := rfl
 
