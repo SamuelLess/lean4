@@ -1036,8 +1036,8 @@ theorem dropWhile_dropWhile {ρ : Type} {pat : ρ} [PatternModel pat] [ForwardPa
   simp [← dropWhile_toSlice]
 
 theorem takeWhile_takeWhile {ρ : Type} {pat : ρ} [PatternModel pat] [ForwardPattern pat]
-    [LawfulForwardPatternModel pat] {s : Slice} : (s.takeWhile pat).takeWhile pat = s.takeWhile pat := by
-  simp
+    [LawfulForwardPatternModel pat] {s : String} : (s.takeWhile pat).takeWhile pat = s.takeWhile pat := by
+  simp [← takeWhile_toSlice]
 
 @[simp]
 theorem isEmpty_takeWhile_dropWhile {ρ : Type} {pat : ρ} [PatternModel pat] [ForwardPattern pat]
@@ -1245,8 +1245,8 @@ theorem dropEndWhile_dropEndWhile {ρ : Type} {pat : ρ} [PatternModel pat] [Bac
   simp [← dropEndWhile_toSlice]
 
 theorem takeEndWhile_takeEndWhile {ρ : Type} {pat : ρ} [PatternModel pat] [BackwardPattern pat]
-    [LawfulBackwardPatternModel pat] {s : Slice} : (s.takeEndWhile pat).takeEndWhile pat = s.takeEndWhile pat := by
-  simp
+    [LawfulBackwardPatternModel pat] {s : String} : (s.takeEndWhile pat).takeEndWhile pat = s.takeEndWhile pat := by
+  simp [← takeEndWhile_toSlice]
 
 @[simp]
 theorem isEmpty_takeEndWhile_dropEndWhile {ρ : Type} {pat : ρ} [PatternModel pat] [BackwardPattern pat]
