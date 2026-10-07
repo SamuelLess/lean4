@@ -24,7 +24,7 @@ set_option linter.missingDocs true -- keep it documented
   | rfl, rfl, _ => rfl
 
 @[simp] theorem eq_true_eq_id : Eq True = id := by
-  funext _; simp only [true_iff, id_def, eq_iff_iff]
+  funext _; simp only [true_iff, id_eq, eq_iff_iff]
 
 theorem proof_irrel_heq {p q : Prop} (hp : p) (hq : q) : hp ≍ hq := by
   cases propext (iff_of_true hp hq); rfl

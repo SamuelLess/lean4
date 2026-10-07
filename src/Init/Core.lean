@@ -27,7 +27,8 @@ which applies to all applications of the function).
 -/
 @[simp] def inline {α : Sort u} (a : α) : α := a
 
-theorem id_def {α : Sort u} (a : α) : id a = a := rfl
+@[deprecated id_eq (since := "2026-10-07")]
+theorem id_def {α : Sort u} (a : α) : id a = a := id_eq a
 
 attribute [grind] id
 
