@@ -23,9 +23,9 @@ import Lean.Elab.Tactic.Grind.LintExceptions
 #guard_msgs in
 #grind_lint inspect (min := 25) List.Sublist.middle
 
--- `List.drop_append_length` is reasonable at 25.
+-- `List.drop_left` is reasonable at 25.
 #guard_msgs in
-#grind_lint inspect (min := 25) List.drop_append_length
+#grind_lint inspect (min := 25) List.drop_left
 
 -- `List.getLast_scanr` is a very reasonable lemma.
 -- However, given the signature of it, `foldl_append` gets

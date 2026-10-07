@@ -18,7 +18,7 @@ import Lean.Elab.Tactic.Grind.Lint
 #grind_lint skip List.Sublist.append
 #grind_lint skip List.Sublist.middle
 #grind_lint skip List.getLast?_pmap
-#grind_lint skip List.drop_append_length
+#grind_lint skip List.drop_left
 #grind_lint skip List.getLast_scanr
 #grind_lint skip Array.back_singleton
 #grind_lint skip Array.count_singleton

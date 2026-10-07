@@ -212,7 +212,7 @@ theorem take_succ_eq_append_getElem {i} {l : List α} (h : i < l.length) : l.tak
   | x :: xs =>
     simpa using! take_append_getLast (x :: xs) (by simp)
 
-theorem drop_left : ∀ {l₁ l₂ : List α}, drop (length l₁) (l₁ ++ l₂) = l₂
+@[grind =] theorem drop_left : ∀ {l₁ l₂ : List α}, drop (length l₁) (l₁ ++ l₂) = l₂
   | [], _ => rfl
   | _ :: l₁, _ => drop_left (l₁ := l₁)
 
@@ -220,13 +220,21 @@ theorem drop_left : ∀ {l₁ l₂ : List α}, drop (length l₁) (l₁ ++ l₂)
 theorem drop_left' {l₁ l₂ : List α} {i} (h : length l₁ = i) : drop i (l₁ ++ l₂) = l₂ := by
   rw [← h]; apply drop_left
 
-theorem take_left : ∀ {l₁ l₂ : List α}, take (length l₁) (l₁ ++ l₂) = l₁
+@[deprecated List.drop_left (since := "2026-10-07")]
+theorem drop_append_length {l₁ l₂ : List α} : (l₁ ++ l₂).drop l₁.length = l₂ :=
+  drop_left
+
+@[grind =] theorem take_left : ∀ {l₁ l₂ : List α}, take (length l₁) (l₁ ++ l₂) = l₁
   | [], _ => rfl
   | a :: _, _ => congrArg (cons a) take_left
 
 @[simp]
 theorem take_left' {l₁ l₂ : List α} {i} (h : length l₁ = i) : take i (l₁ ++ l₂) = l₁ := by
   rw [← h]; apply take_left
+
+@[deprecated List.take_left (since := "2026-10-07")]
+theorem take_append_length {l₁ l₂ : List α} : (l₁ ++ l₂).take l₁.length = l₁ :=
+  take_left
 
 theorem take_add_one {l : List α} {i : Nat} : l.take (i + 1) = l.take i ++ l[i]?.toList := by
   induction l generalizing i with
