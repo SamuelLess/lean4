@@ -28,7 +28,7 @@ theorem Slice.Pos.le_find {s : Slice} (pos : s.Pos) (pattern : ρ) [ToForwardSea
 @[simp]
 theorem Pos.le_find {s : String} (pos : s.Pos) (pattern : ρ) [ToForwardSearcher pattern σ] :
     pos ≤ pos.find pattern := by
-  simp [Pos.find, ← toSlice_le]
+  simp [Pos.find, ← toSlice_le_toSlice_iff]
 
 @[simp]
 theorem front?_toSlice {s : String} : s.toSlice.front? = s.front? :=

@@ -575,12 +575,14 @@ theorem Slice.Pos.Splits.lt_iff_exists_eq_append {s : Slice} {p₁ p₂ : s.Pos}
 
 theorem Pos.Splits.le_iff_exists_eq_append {s : String} {p₁ p₂ : s.Pos} {t₁ t₂ t₃ t₄ : String}
     (h : p₁.Splits t₁ t₂) (h' : p₂.Splits t₃ t₄) : p₁ ≤ p₂ ↔ ∃ t₅, t₃ = t₁ ++ t₅ ∧ t₂ = t₅ ++ t₄ := by
-  rw [← toSlice_le, (splits_toSlice_iff.2 h).le_iff_exists_eq_append (splits_toSlice_iff.2 h')]
+  rw [← toSlice_le_toSlice_iff,
+    (splits_toSlice_iff.2 h).le_iff_exists_eq_append (splits_toSlice_iff.2 h')]
 
 theorem Pos.Splits.lt_iff_exists_eq_append {s : String} {p₁ p₂ : s.Pos} {t₁ t₂ t₃ t₄ : String}
     (h : p₁.Splits t₁ t₂) (h' : p₂.Splits t₃ t₄) :
     p₁ < p₂ ↔ ∃ t₅, t₅ ≠ "" ∧ t₃ = t₁ ++ t₅ ∧ t₂ = t₅ ++ t₄ := by
-  rw [← toSlice_lt, (splits_toSlice_iff.2 h).lt_iff_exists_eq_append (splits_toSlice_iff.2 h')]
+  rw [← toSlice_lt_toSlice_iff,
+    (splits_toSlice_iff.2 h).lt_iff_exists_eq_append (splits_toSlice_iff.2 h')]
 
 @[simp]
 theorem Slice.Pos.splits_ofToSlice_iff {s : String} {p : s.toSlice.Pos} {t₁ t₂ : String} :

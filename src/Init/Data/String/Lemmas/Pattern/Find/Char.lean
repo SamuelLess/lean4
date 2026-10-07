@@ -110,9 +110,10 @@ theorem Pos.find?_char_eq_some_iff {c : Char} {s : String} {pos pos' : s.Pos} :
     refine ⟨by simpa [Pos.ofToSlice_le_iff] using! h₁,
       ⟨by simpa [← Pos.ofToSlice_inj] using h₂, by simp [Pos.get_ofToSlice]⟩, ?_⟩
     intro pos'' h₄ h₅
-    simpa using h₃ pos''.toSlice (by simpa [Pos.toSlice_le] using h₄) (by simpa using! h₅)
+    simpa using h₃ pos''.toSlice (by simpa [Pos.toSlice_le_toSlice_iff] using h₄)
+      (by simpa using! h₅)
   · rintro ⟨h₁, ⟨h₂, hget⟩, h₃⟩
-    refine ⟨pos'.toSlice, ⟨by simpa [Pos.toSlice_le] using h₁,
+    refine ⟨pos'.toSlice, ⟨by simpa [Pos.toSlice_le_toSlice_iff] using h₁,
       ⟨by simpa [← Pos.toSlice_inj] using h₂, by simpa using hget⟩, fun p hp₁ hp₂ => ?_⟩,
       by simp⟩
     simpa using h₃ (Pos.ofToSlice p)
@@ -136,7 +137,8 @@ theorem Pos.find?_char_eq_none_iff {c : Char} {s : String} {pos : s.Pos} :
   refine ⟨?_, ?_⟩
   · intro h pos' h₁ h₂
     simpa [Pos.get_ofToSlice] using
-      h pos'.toSlice (by simpa [Pos.toSlice_le] using h₁) (by simpa [← Pos.toSlice_inj] using h₂)
+      h pos'.toSlice (by simpa [Pos.toSlice_le_toSlice_iff] using h₁)
+        (by simpa [← Pos.toSlice_inj] using h₂)
   · intro h pos' h₁ h₂
     simpa using! h (Pos.ofToSlice pos')
       (by simpa [Pos.ofToSlice_le_iff] using! h₁) (by simpa [← Pos.ofToSlice_inj] using h₂)

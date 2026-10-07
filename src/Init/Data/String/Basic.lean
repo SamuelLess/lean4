@@ -1199,8 +1199,12 @@ theorem Pos.ofToSlice_inj {s : String} {p q : s.toSlice.Pos} : ofToSlice p = ofT
   ⟨fun h => by simpa using congrArg Pos.toSlice h, (· ▸ rfl)⟩
 
 @[simp]
-theorem Pos.toSlice_le {s : String} {p q : s.Pos} : p.toSlice ≤ q.toSlice ↔ p ≤ q := by
-  simp [le_iff, Slice.Pos.le_iff]
+theorem Pos.toSlice_le_toSlice_iff {s : String} {p q : s.Pos} :
+    p.toSlice ≤ q.toSlice ↔ p ≤ q := Iff.rfl
+
+@[deprecated String.Pos.toSlice_le_toSlice_iff (since := "2026-10-07")]
+theorem Pos.toSlice_le {s : String} {p q : s.Pos} : p.toSlice ≤ q.toSlice ↔ p ≤ q :=
+  Pos.toSlice_le_toSlice_iff
 
 @[simp]
 theorem Pos.ofToSlice_le {s : String} {p q : s.toSlice.Pos} :
@@ -1208,8 +1212,12 @@ theorem Pos.ofToSlice_le {s : String} {p q : s.toSlice.Pos} :
   simp [le_iff, Slice.Pos.le_iff]
 
 @[simp]
-theorem Pos.toSlice_lt {s : String} {p q : s.Pos} : p.toSlice < q.toSlice ↔ p < q := by
-  simp [lt_iff, Slice.Pos.lt_iff]
+theorem Pos.toSlice_lt_toSlice_iff {s : String} {p q : s.Pos} :
+    p.toSlice < q.toSlice ↔ p < q := Iff.rfl
+
+@[deprecated String.Pos.toSlice_lt_toSlice_iff (since := "2026-10-07")]
+theorem Pos.toSlice_lt {s : String} {p q : s.Pos} : p.toSlice < q.toSlice ↔ p < q :=
+  Pos.toSlice_lt_toSlice_iff
 
 @[simp]
 theorem Pos.ofToSlice_lt {s : String} {p q : s.toSlice.Pos} :
@@ -1941,7 +1949,7 @@ theorem Pos.byteIdx_lt_utf8ByteSize {s : String} (p : s.Pos) (h : p ≠ s.endPos
 
 @[simp]
 theorem Pos.lt_next {s : String} {p : s.Pos} {h} : p < p.next h := by
-  simp [← Pos.toSlice_lt, toSlice_next]
+  simp [← Pos.toSlice_lt_toSlice_iff, toSlice_next]
 
 theorem Pos.ne_startPos_of_lt {s : String} {p q : s.Pos} :
     p < q → q ≠ s.startPos := by
@@ -2051,14 +2059,6 @@ theorem Pos.lt_ofToSlice_iff {s : String} {p : s.Pos} {q : s.toSlice.Pos} :
 
 theorem Pos.le_ofToSlice_iff {s : String} {p : s.Pos} {q : s.toSlice.Pos} :
     p ≤ ofToSlice q ↔ p.toSlice ≤ q := Iff.rfl
-
-@[simp]
-theorem Pos.toSlice_lt_toSlice_iff {s : String} {p q : s.Pos} :
-    p.toSlice < q.toSlice ↔ p < q := Iff.rfl
-
-@[simp]
-theorem Pos.toSlice_le_toSlice_iff {s : String} {p q : s.Pos} :
-    p.toSlice ≤ q.toSlice ↔ p ≤ q := Iff.rfl
 
 theorem Pos.next_le_of_lt {s : String} {p q : s.Pos} {h} : p < q → p.next h ≤ q := by
   rw [next, Pos.ofToSlice_le_iff, ← Pos.toSlice_lt_toSlice_iff]
