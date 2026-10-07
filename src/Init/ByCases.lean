@@ -33,7 +33,8 @@ theorem if_true {_ : Decidable True} (t e : α) : ite True t e = t := ite_eq_lef
 @[deprecated ite_false (since := "2026-07-21")]
 theorem if_false {_ : Decidable False} (t e : α) : ite False t e = e := ite_eq_right id
 
-theorem ite_id [Decidable c] {α} (t : α) : (if c then t else t) = t := by split <;> rfl
+@[deprecated ite_self +typeChanged (since := "2026-10-07")]
+theorem ite_id [Decidable c] {α} (t : α) : (if c then t else t) = t := ite_self t
 
 /-- A function applied to a `dite` is a `dite` of that function applied to each of the branches. -/
 theorem apply_dite (f : α → β) (P : Prop) [Decidable P] (x : P → α) (y : ¬P → α) :
