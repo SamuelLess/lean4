@@ -182,7 +182,7 @@ theorem contains_of_contains_erase [TransCmp cmp] {k a : α} :
   ExtTreeMap.contains_of_contains_erase
 
 theorem mem_of_mem_erase [TransCmp cmp] {k a : α} :
-    (t.erase k).contains a → t.contains a :=
+    a ∈ t.erase k → a ∈ t :=
   ExtTreeMap.mem_of_mem_erase
 
 @[grind =]
