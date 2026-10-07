@@ -98,7 +98,7 @@ def resolve_left' (a c d p x : Int) (h₁ : p ≤ a * x) : Nat := (add_of_le h�
 
 @[simp] theorem resolve_left_eq (a c d p x : Int) (h₁ : p ≤ a * x) :
     resolve_left a c d p x = resolve_left' a c d p x h₁ := by
-  simp only [resolve_left, resolve_left', add_of_le, natCast_emod, ofNat_toNat]
+  simp only [resolve_left, resolve_left', add_of_le, natCast_emod, toNat_eq_max]
   rw [Int.max_eq_left]
   omega
 

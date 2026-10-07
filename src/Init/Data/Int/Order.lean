@@ -689,10 +689,10 @@ theorem toNat_of_nonneg {a : Int} (h : 0 ≤ a) : (toNat a : Int) = a := by
 
 @[simp] theorem toNat_natCast_add_one {n : Nat} : ((n : Int) + 1).toNat = n + 1 := rfl
 
-@[simp] theorem ofNat_toNat (a : Int) : (a.toNat : Int) = max a 0 := by
-  match a with
-  | (n : Nat) => simp
-  | -(n + 1 : Nat) => norm_cast
+attribute [simp] toNat_eq_max
+
+@[deprecated Int.toNat_eq_max (since := "2026-10-07")]
+theorem ofNat_toNat (a : Int) : (a.toNat : Int) = max a 0 := toNat_eq_max a
 
 theorem self_le_toNat (a : Int) : a ≤ toNat a := by rw [toNat_eq_max]; apply Int.le_max_left
 
@@ -947,7 +947,7 @@ protected theorem sub_right_le_iff_le_add {a b c : Int} : a - c ≤ b ↔ a ≤ 
   ⟨Int.le_add_of_sub_right_le, Int.sub_right_le_of_le_add⟩
 
 theorem toNat_sub_eq_zero_iff (m n : Int) : toNat (m - n) = 0 ↔ m ≤ n := by
-  rw [← ofNat_inj, ofNat_toNat, cast_ofNat_Int, Int.max_eq_right_iff, Int.sub_right_le_iff_le_add,
+  rw [← ofNat_inj, toNat_eq_max, cast_ofNat_Int, Int.max_eq_right_iff, Int.sub_right_le_iff_le_add,
     Int.zero_add]
 
 theorem zero_eq_toNat_sub_iff (m n : Int) : 0 = toNat (m - n) ↔ m ≤ n := by

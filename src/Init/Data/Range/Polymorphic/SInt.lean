@@ -234,7 +234,7 @@ instance : LawfulUpwardEnumerableLeast? Int8 where
   least?_le x := by
     refine ⟨Int8.minValue, rfl, (x.toInt - Int8.minValue.toInt).toNat, ?_⟩
     simp only [succMany?, toInt_neg, Int8.reduceToInt, Int.neg_neg, Nat.reducePow, Int.reduceBmod,
-      Int.sub_neg, Int.ofNat_toNat, ofIntLE_eq_ofInt]
+      Int.sub_neg, Int.toNat_eq_max, ofIntLE_eq_ofInt]
     rw [Int.max_eq_left, Int.add_comm _ 128, ← Int.add_assoc]
     · simp [maxValueSealed_def, toInt_le]
     · have := le_toInt x
@@ -339,7 +339,7 @@ instance : LawfulUpwardEnumerableLeast? Int16 where
   least?_le x := by
     refine ⟨Int16.minValue, rfl, (x.toInt - Int16.minValue.toInt).toNat, ?_⟩
     simp only [succMany?, toInt_neg, Int16.reduceToInt, Int.neg_neg, Nat.reducePow, Int.reduceBmod,
-      Int.sub_neg, Int.ofNat_toNat, ofIntLE_eq_ofInt]
+      Int.sub_neg, Int.toNat_eq_max, ofIntLE_eq_ofInt]
     rw [Int.max_eq_left, Int.add_comm _ 32768, ← Int.add_assoc]
     · simp [maxValueSealed_def, toInt_le]
     · have := le_toInt x
@@ -434,7 +434,7 @@ instance : LawfulUpwardEnumerableLeast? Int32 where
   least?_le x := by
     refine ⟨Int32.minValue, rfl, (x.toInt - Int32.minValue.toInt).toNat, ?_⟩
     simp only [succMany?, toInt_neg, Int32.reduceToInt, Int.neg_neg, Nat.reducePow, Int.reduceBmod,
-      Int.sub_neg, Int.ofNat_toNat, ofIntLE_eq_ofInt]
+      Int.sub_neg, Int.toNat_eq_max, ofIntLE_eq_ofInt]
     rw [Int.max_eq_left, Int.add_comm _ (OfNat.ofNat _), ← Int.add_assoc]
     · simp [maxValueSealed_def, toInt_le]
     · have := le_toInt x
@@ -529,7 +529,7 @@ instance : LawfulUpwardEnumerableLeast? Int64 where
   least?_le x := by
     refine ⟨Int64.minValue, rfl, (x.toInt - Int64.minValue.toInt).toNat, ?_⟩
     simp only [succMany?, toInt_neg, Int64.reduceToInt, Int.neg_neg, Nat.reducePow, Int.reduceBmod,
-      Int.sub_neg, Int.ofNat_toNat, ofIntLE_eq_ofInt]
+      Int.sub_neg, Int.toNat_eq_max, ofIntLE_eq_ofInt]
     rw [Int.max_eq_left, Int.add_comm _ (OfNat.ofNat _), ← Int.add_assoc]
     · simp [maxValueSealed_def, toInt_le]
     · have := le_toInt x
@@ -629,7 +629,7 @@ instance : Least? ISize where
 instance : LawfulUpwardEnumerableLeast? ISize where
   least?_le x := by
     refine ⟨ISize.minValue, rfl, (x.toInt - ISize.minValue.toInt).toNat, ?_⟩
-    simp only [succMany?, Int.ofNat_toNat, ofIntLE_eq_ofInt, maxValueSealed]
+    simp only [succMany?, Int.toNat_eq_max, ofIntLE_eq_ofInt, maxValueSealed]
     rw [Int.max_eq_left, Int.sub_eq_add_neg, Int.add_comm _ (-minValue.toInt), ← Int.add_assoc,
       ← Int.sub_eq_add_neg, Int.sub_self, Int.zero_add, dite_eq_left (toInt_le x), ofInt_toInt]
     have := minValue_le_toInt x
