@@ -1873,11 +1873,6 @@ theorem toList_rio_eq_ite {n : Nat} :
 @[deprecated Nat.toList_rio_eq_ite (since := "2026-07-21")]
 theorem toList_rio_eq_if {n : Nat} : (*...n).toList = if 0 < n then (*...n - 1).toList ++ [n - 1] else [] := Nat.toList_rio_eq_ite
 
-theorem toList_rio_succ {n : Nat} :
-    (*...(n+1)).toList = (*...n).toList ++ [n] := by
-  rw [toList_rio_eq_ite, ite_eq_left (by omega)]
-  simp
-
 @[simp]
 theorem toList_rio_eq_nil_iff {n : Nat} :
     (*...n).toList = [] ↔ n = 0 := by
@@ -1927,6 +1922,11 @@ theorem map_add_toList_rio' {n k : Nat} :
 theorem toList_rio_succ_eq_append {n : Nat} :
     (*...(n + 1)).toList = (*...n).toList ++ [n] := by
   simp [toList_rio_eq_toList_rco, toList_rco_succ_right_eq_append]
+
+@[deprecated Nat.toList_rio_succ_eq_append (since := "2026-10-07")]
+theorem toList_rio_succ {n : Nat} :
+    (*...(n+1)).toList = (*...n).toList ++ [n] :=
+  toList_rio_succ_eq_append
 
 theorem toList_rio_eq_append {n : Nat} (h : 0 < n) :
     (*...n).toList = (*...(n - 1)).toList ++ [n - 1] := by
@@ -2028,11 +2028,6 @@ theorem toArray_rio_eq_ite {n : Nat} :
 @[deprecated Nat.toArray_rio_eq_ite (since := "2026-07-21")]
 theorem toArray_rio_eq_if {n : Nat} : (*...n).toArray = if 0 < n then (*...n - 1).toArray.push (n - 1) else #[] := Nat.toArray_rio_eq_ite
 
-theorem toArray_rio_succ {n : Nat} :
-    (*...(n+1)).toArray = (*...n).toArray ++ [n] := by
-  rw [toArray_rio_eq_ite, ite_eq_left (by omega)]
-  simp
-
 @[simp]
 theorem toArray_rio_eq_nil_iff {n : Nat} :
     (*...n).toArray = #[] ↔ n = 0 := by
@@ -2082,6 +2077,12 @@ theorem map_add_toArray_rio' {n k : Nat} :
 theorem toArray_rio_succ_eq_push {n : Nat} :
     (*...(n + 1)).toArray = (*...n).toArray.push n := by
   simp [toArray_rio_eq_toArray_rco, toArray_rco_succ_right_eq_push]
+
+@[deprecated Nat.toArray_rio_succ_eq_push +typeChanged (since := "2026-10-07")]
+theorem toArray_rio_succ {n : Nat} :
+    (*...(n+1)).toArray = (*...n).toArray ++ [n] := by
+  rw [toArray_rio_eq_ite, ite_eq_left (by omega)]
+  simp
 
 theorem toArray_rio_eq_push {n : Nat} (h : 0 < n) :
     (*...n).toArray = (*...(n - 1)).toArray.push (n - 1) := by
@@ -2198,10 +2199,6 @@ theorem toList_ric_eq_toList_rio_append {n : Nat} :
   rw [toList_ric_eq_toList_rco, toList_rio_eq_toList_rco, toList_rco_eq_ite_append]
   simp
 
-theorem toList_ric_succ {n : Nat} :
-    (*...=(n + 1)).toList = (*...=n).toList ++ [n + 1] := by
-  rw [toList_ric_eq_toList_rco, toList_rco_succ_right_eq_append (by omega), toList_ric_eq_toList_rco]
-
 @[simp]
 theorem toList_ric_ne_nil {n : Nat} :
     (*...=n).toList ≠ [] := by
@@ -2239,6 +2236,11 @@ theorem map_add_toList_ric' {n k : Nat} :
 theorem toList_ric_succ_eq_append {n : Nat} :
     (*...=(n + 1)).toList = (*...=n).toList ++ [n + 1] := by
   simp [toList_ric_eq_toList_rco, toList_rco_succ_right_eq_append]
+
+@[deprecated Nat.toList_ric_succ_eq_append (since := "2026-10-07")]
+theorem toList_ric_succ {n : Nat} :
+    (*...=(n + 1)).toList = (*...=n).toList ++ [n + 1] :=
+  toList_ric_succ_eq_append
 
 theorem toList_ric_eq_append {n : Nat} (h : 0 < n) :
     (*...=n).toList = (*...=(n - 1)).toList ++ [n] := by
@@ -2348,10 +2350,6 @@ theorem toArray_ric_eq_toArray_rio_push {n : Nat} :
   rw [toArray_ric_eq_toArray_rco, toArray_rio_eq_toArray_rco, toArray_rco_eq_ite_push]
   simp
 
-theorem toArray_ric_succ {n : Nat} :
-    (*...=(n + 1)).toArray = (*...=n).toArray.push (n + 1) := by
-  rw [toArray_ric_eq_toArray_rco, toArray_rco_succ_right_eq_push (by omega), toArray_ric_eq_toArray_rco]
-
 @[simp]
 theorem toArray_ric_ne_nil {n : Nat} :
     (*...=n).toArray ≠ #[] := by
@@ -2389,6 +2387,11 @@ theorem map_add_toArray_ric' {n k : Nat} :
 theorem toArray_ric_succ_eq_push {n : Nat} :
     (*...=(n + 1)).toArray = (*...=n).toArray.push (n + 1) := by
   simp [toArray_ric_eq_toArray_rco, toArray_rco_succ_right_eq_push]
+
+@[deprecated Nat.toArray_ric_succ_eq_push (since := "2026-10-07")]
+theorem toArray_ric_succ {n : Nat} :
+    (*...=(n + 1)).toArray = (*...=n).toArray.push (n + 1) :=
+  toArray_ric_succ_eq_push
 
 theorem toArray_ric_eq_push {n : Nat} (h : 0 < n) :
     (*...=n).toArray = (*...=(n - 1)).toArray.push n:= by
