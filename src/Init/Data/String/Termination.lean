@@ -191,6 +191,10 @@ theorem map_toSlice_prev? {s : String} {p : s.Pos} :
     p.prev?.map Pos.toSlice = p.toSlice.prev? := by
   simp [prev?]
 
+@[deprecated String.Pos.map_toSlice_prev? +typeChanged (since := "2026-10-07")]
+theorem prev?_toSlice {s : String} {p : s.Pos} : p.toSlice.prev? = p.prev?.map Pos.toSlice :=
+  map_toSlice_prev?.symm
+
 theorem ne_endPos_of_next?_eq_some {s : String} {p q : s.Pos}
     (h : p.next? = some q) : p ≠ s.endPos :=
   ne_of_apply_ne Pos.toSlice (Slice.Pos.ne_endPos_of_next?_eq_some

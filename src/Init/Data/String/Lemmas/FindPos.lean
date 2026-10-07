@@ -531,9 +531,6 @@ theorem Pos.next_prev {s : String} {p : s.Pos} {h} : (p.prev h).next (by simp) =
 theorem Pos.prev?_eq_prev?_toSlice {s : String} {p : s.Pos} : p.prev? = p.toSlice.prev?.map Pos.ofToSlice :=
   (rfl)
 
-theorem Pos.prev?_toSlice {s : String} {p : s.Pos} : p.toSlice.prev? = p.prev?.map Pos.toSlice := by
-  simp [prev?_eq_prev?_toSlice]
-
 theorem Pos.prev?_eq_dite {s : String} {p : s.Pos} : p.prev? = if h : p = s.startPos then none else some (p.prev h) := by
   simp [prev?_eq_prev?_toSlice, Slice.Pos.prev?_eq_dite, apply_dite (Option.map Pos.ofToSlice),
     ofToSlice_prev]
