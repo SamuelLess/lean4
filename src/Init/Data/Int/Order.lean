@@ -931,14 +931,6 @@ protected theorem le_sub_right_of_add_le {a b c : Int} (h : a + b ≤ c) : a ≤
   have h := Int.add_le_add_right h (-b)
   rwa [Int.add_neg_cancel_right] at h
 
-protected theorem le_add_of_neg_add_le {a b c : Int} (h : -b + a ≤ c) : a ≤ b + c := by
-  have h := Int.add_le_add_left h b
-  rwa [Int.add_neg_cancel_left] at h
-
-protected theorem neg_add_le_of_le_add {a b c : Int} (h : a ≤ b + c) : -b + a ≤ c := by
-  have h := Int.add_le_add_left h (-b)
-  rwa [Int.neg_add_cancel_left] at h
-
 protected theorem le_add_of_sub_left_le {a b c : Int} (h : a - b ≤ c) : a ≤ b + c := by
   have h := Int.add_le_add_right h b
   rwa [Int.sub_add_cancel, Int.add_comm] at h
@@ -976,6 +968,14 @@ protected theorem le_add_of_neg_add_le_right {a b c : Int} (h : -c + a ≤ b) : 
 protected theorem neg_add_le_right_of_le_add {a b c : Int} (h : a ≤ b + c) : -c + a ≤ b := by
   rw [Int.add_comm] at h
   exact Int.neg_add_le_left_of_le_add h
+
+@[deprecated Int.le_add_of_neg_add_le_left (since := "2026-10-07")]
+protected theorem le_add_of_neg_add_le {a b c : Int} (h : -b + a ≤ c) : a ≤ b + c :=
+  Int.le_add_of_neg_add_le_left h
+
+@[deprecated Int.neg_add_le_left_of_le_add (since := "2026-10-07")]
+protected theorem neg_add_le_of_le_add {a b c : Int} (h : a ≤ b + c) : -b + a ≤ c :=
+  Int.neg_add_le_left_of_le_add h
 
 protected theorem le_add_of_neg_le_sub_left {a b c : Int} (h : -a ≤ b - c) : c ≤ a + b :=
   Int.le_add_of_neg_add_le_left (Int.add_le_of_le_sub_right h)
@@ -1042,14 +1042,6 @@ protected theorem lt_sub_right_iff_add_lt {a b c : Int} :
     a < c - b ↔ a + b < c :=
   ⟨Int.add_lt_of_lt_sub_right, Int.lt_sub_right_of_add_lt⟩
 
-protected theorem lt_add_of_neg_add_lt {a b c : Int} (h : -b + a < c) : a < b + c := by
-  have h := Int.add_lt_add_left h b
-  rwa [Int.add_neg_cancel_left] at h
-
-protected theorem neg_add_lt_of_lt_add {a b c : Int} (h : a < b + c) : -b + a < c := by
-  have h := Int.add_lt_add_left h (-b)
-  rwa [Int.neg_add_cancel_left] at h
-
 protected theorem lt_add_of_sub_left_lt {a b c : Int} (h : a - b < c) : a < b + c := by
   have h := Int.add_lt_add_right h b
   rwa [Int.sub_add_cancel, Int.add_comm] at h
@@ -1081,6 +1073,14 @@ protected theorem lt_add_of_neg_add_lt_right {a b c : Int} (h : -c + a < b) : a 
 protected theorem neg_add_lt_right_of_lt_add {a b c : Int} (h : a < b + c) : -c + a < b := by
   rw [Int.add_comm] at h
   exact Int.neg_add_lt_left_of_lt_add h
+
+@[deprecated Int.lt_add_of_neg_add_lt_left (since := "2026-10-07")]
+protected theorem lt_add_of_neg_add_lt {a b c : Int} (h : -b + a < c) : a < b + c :=
+  Int.lt_add_of_neg_add_lt_left h
+
+@[deprecated Int.neg_add_lt_left_of_lt_add (since := "2026-10-07")]
+protected theorem neg_add_lt_of_lt_add {a b c : Int} (h : a < b + c) : -b + a < c :=
+  Int.neg_add_lt_left_of_lt_add h
 
 protected theorem lt_add_of_neg_lt_sub_left {a b c : Int} (h : -a < b - c) : c < a + b :=
   Int.lt_add_of_neg_add_lt_left (Int.add_lt_of_lt_sub_right h)
