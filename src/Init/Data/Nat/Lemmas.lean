@@ -1061,10 +1061,9 @@ theorem one_shiftLeft (n : Nat) : 1 <<< n = 2 ^ n := by rw [shiftLeft_eq, Nat.on
 
 attribute [simp] Nat.pow_zero
 
-protected theorem zero_pow {n : Nat} (H : 0 < n) : 0 ^ n = 0 := by
-  match n with
-  | 0 => contradiction
-  | n+1 => rw [Nat.pow_succ, Nat.mul_zero]
+@[deprecated Nat.zero_pow_of_pos (since := "2026-10-07")]
+protected theorem zero_pow {n : Nat} (H : 0 < n) : 0 ^ n = 0 :=
+  Nat.zero_pow_of_pos n H
 
 @[simp] protected theorem one_pow (n : Nat) : 1 ^ n = 1 := by
   induction n with
@@ -1259,7 +1258,7 @@ theorem one_lt_pow' (n m : Nat) : 1 < (m + 2) ^ (n + 1) :=
   one_lt_pow n.succ_ne_zero (Nat.lt_of_sub_eq_succ rfl)
 
 @[simp] theorem one_lt_pow_iff {n : Nat} (hn : n ≠ 0) : ∀ {a}, 1 < a ^ n ↔ 1 < a
- | 0 => by simp [Nat.zero_pow (Nat.pos_of_ne_zero hn)]
+ | 0 => by simp [Nat.zero_pow_of_pos n (Nat.pos_of_ne_zero hn)]
  | 1 => by simp
  | a + 2 => by simp [one_lt_pow hn]
 
