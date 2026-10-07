@@ -1181,7 +1181,7 @@ where
       simp only [aux (i + 1), map_eq_pure_bind, List.foldlM_cons, bind_assoc,
         pure_bind]
       rfl
-    · rw [List.drop_of_length_le (Nat.ge_of_not_lt ‹_›)]; rfl
+    · rw [List.drop_eq_nil_of_le (Nat.ge_of_not_lt ‹_›)]; rfl
   termination_by xs.size - i
   decreasing_by decreasing_trivial_pre_omega
 
