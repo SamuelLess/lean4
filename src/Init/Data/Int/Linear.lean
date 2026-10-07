@@ -1228,7 +1228,7 @@ theorem eq_le_subst_nonpos (ctx : Context) (x : Var) (p₁ : Poly) (p₂ : Poly)
   intro h
   intro; subst p₃
   intro h₁ h₂
-  simp [*, -Int.neg_nonpos_iff, Int.neg_mul]
+  simp [*, Int.neg_mul]
   replace h₂ := Int.mul_le_mul_of_nonpos_left h₂ h; simp at h₂; clear h
   rw [Int.mul_comm]
   assumption
@@ -1294,7 +1294,7 @@ noncomputable def eq_of_le_ge_cert (p₁ p₂ : Poly) : Bool :=
 theorem eq_of_le_ge (ctx : Context) (p₁ : Poly) (p₂ : Poly)
     : eq_of_le_ge_cert p₁ p₂ → p₁.denote' ctx ≤ 0 → p₂.denote' ctx ≤ 0 → p₁.denote' ctx = 0 := by
   simp [eq_of_le_ge_cert]
-  intro; subst p₂; simp [-Int.neg_nonpos_iff]
+  intro; subst p₂; simp
   intro h₁ h₂
   simp [Int.eq_iff_le_and_ge, *]
 

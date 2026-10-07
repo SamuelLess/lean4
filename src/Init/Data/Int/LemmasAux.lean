@@ -27,8 +27,6 @@ namespace Int
 @[deprecated Int.natCast_nonpos_iff (since := "2026-10-07")]
 theorem natCast_le_zero : {n : Nat} → (n : Int) ≤ 0 ↔ n = 0 := natCast_nonpos_iff
 
-@[simp] protected theorem neg_nonpos_iff (i : Int) : -i ≤ 0 ↔ 0 ≤ i := by omega
-
 @[simp] theorem zero_le_ofNat (n : Nat) : 0 ≤ ((no_index (OfNat.ofNat n)) : Int) :=
   natCast_nonneg _
 

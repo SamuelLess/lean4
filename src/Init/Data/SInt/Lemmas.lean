@@ -2313,7 +2313,7 @@ theorem Int16.toInt_minValue_lt_zero : minValue.toInt < 0 := by decide
 theorem Int32.toInt_minValue_lt_zero : minValue.toInt < 0 := by decide
 theorem Int64.toInt_minValue_lt_zero : minValue.toInt < 0 := by decide
 theorem ISize.toInt_minValue_lt_zero : minValue.toInt < 0 := by
-  rw [toInt_minValue, Int.neg_lt_zero_iff]
+  rw [toInt_minValue, Int.neg_neg_iff_pos]
   exact Int.pow_pos (by decide)
 
 theorem Int8.toInt_maxValue_add_one : maxValue.toInt + 1 = 2 ^ 7 := (rfl)
