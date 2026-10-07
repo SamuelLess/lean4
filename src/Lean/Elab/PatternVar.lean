@@ -115,7 +115,7 @@ private def throwInvalidNamedArgs (ctx : Context) (h : !ctx.namedArgs.isEmpty) :
   let nameStr := if names.length == 1 then "name" else "names"
   let validNames := ctx.paramDecls.filterMap fun (name, _) =>
     if name.hasMacroScopes then none else some name
-  have h := Nat.zero_lt_of_ne_zero (mt Array.isEmpty_iff_size_eq_zero.mpr (Bool.not_eq.mp h))
+  have h := Nat.pos_of_ne_zero (mt Array.isEmpty_iff_size_eq_zero.mpr (Bool.not_eq.mp h))
   -- We offer hints only for the first argument
   let firstNamedArg := ctx.namedArgs[0]'h
   let replacementSpan := firstNamedArg.ref[1]

@@ -2904,7 +2904,7 @@ theorem Pos.Raw.utf8PrevAux_lt_of_pos : ∀ (cs : List Char) (i p : Pos.Raw), i 
     next => exact utf8PrevAux_lt_of_pos _ _ _ (Nat.lt_of_not_le h'') h'
 
 theorem Pos.Raw.prev_lt_of_pos (s : String) (i : Pos.Raw) (h : i ≠ 0) : (i.prev s).1 < i.1 :=
-  utf8PrevAux_lt_of_pos _ _ _ (Nat.zero_lt_of_ne_zero (mt (congrArg Pos.Raw.mk) h)) h
+  utf8PrevAux_lt_of_pos _ _ _ (Nat.pos_of_ne_zero (mt (congrArg Pos.Raw.mk) h)) h
 
 @[deprecated Pos.Raw.prev_lt_of_pos (since := "2025-10-10")]
 theorem prev_lt_of_pos (s : String) (i : Pos.Raw) (h : i ≠ 0) : (i.prev s).1 < i.1 :=

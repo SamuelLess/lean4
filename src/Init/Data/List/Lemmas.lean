@@ -2261,7 +2261,7 @@ theorem forall_mem_replicate {p : α → Prop} {a : α} {n} :
     · simp_all
     · right
       have p := congrArg (·[0]?) h
-      replace w : 0 < n := by exact zero_lt_of_ne_zero w
+      replace w : 0 < n := by exact Nat.pos_of_ne_zero w
       simp only [getElem?_replicate, ite_eq_left w] at p
       simp_all⟩,
     by rintro ⟨rfl, rfl | rfl⟩ <;> rfl⟩

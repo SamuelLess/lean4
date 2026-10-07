@@ -275,7 +275,7 @@ theorem eq_of_zero_length (h : w = 0) {x y : BitVec w} : x = y := by
   subst h; rw [eq_nil x, eq_nil y]
 
 theorem length_pos_of_ne {x y : BitVec w} (h : x ≠ y) : 0 < w :=
-  Nat.zero_lt_of_ne_zero (mt (fun h => eq_of_zero_length h) h)
+  Nat.pos_of_ne_zero (mt (fun h => eq_of_zero_length h) h)
 
 theorem ofFin_ofNat (n : Nat) :
     ofFin (no_index (OfNat.ofNat n : Fin (2^w))) = OfNat.ofNat n := by

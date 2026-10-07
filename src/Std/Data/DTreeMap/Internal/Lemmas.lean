@@ -7508,7 +7508,7 @@ theorem minKey_eq_head_keys [TransOrd α] (h : t.WF) {he} :
   simp_to_model [minKey, keys] using List.minKey_eq_head_keys h.ordered
 
 theorem minKey_eq_getElem_keysArray [TransOrd α] (h : t.WF) {he} :
-    t.minKey he = t.keysArray[0]'(Nat.zero_lt_of_ne_zero (by simpa [size_keysArray h, isEmpty_eq_size_eq_zero h] using he)) := by
+    t.minKey he = t.keysArray[0]'(Nat.pos_of_ne_zero (by simpa [size_keysArray h, isEmpty_eq_size_eq_zero h] using he)) := by
   simp [minKey_eq_head_keys h, List.head_eq_iff_head?_eq_some, ← toList_keysArray, List.head?_eq_getElem?, Array.getElem?_toList,
     getElem?_eq_some_getElem_iff]
 
@@ -8358,7 +8358,7 @@ theorem maxKey_eq_getLast_keys [TransOrd α] (h : t.WF) {he} :
   simp_to_model [maxKey, keys] using List.maxKey_eq_getLast_keys h.ordered.distinctKeys h.ordered
 
 theorem maxKey_eq_back_keysArray [TransOrd α] (h : t.WF) {he} :
-    t.maxKey he = t.keysArray.back (Nat.zero_lt_of_ne_zero (by simpa [size_keysArray h, isEmpty_eq_size_eq_zero h] using he)) := by
+    t.maxKey he = t.keysArray.back (Nat.pos_of_ne_zero (by simpa [size_keysArray h, isEmpty_eq_size_eq_zero h] using he)) := by
   simp [maxKey_eq_getLast_keys h, ← toArray_keys, List.back_toArray]
 
 theorem maxKey_modify [TransOrd α] [LawfulEqOrd α] (h : t.WF) {k f he} :

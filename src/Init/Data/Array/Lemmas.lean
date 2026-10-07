@@ -315,7 +315,7 @@ theorem exists_push_of_size_eq_add_one {xs : Array α} (h : xs.size = n + 1) :
 theorem eq_push_pop_back!_of_size_ne_zero [Inhabited α] {xs : Array α} (h : xs.size ≠ 0) :
     xs = xs.pop.push xs.back! := by
   apply ext
-  · simp [Nat.sub_add_cancel (Nat.zero_lt_of_ne_zero h)]
+  · simp [Nat.sub_add_cancel (Nat.pos_of_ne_zero h)]
   · intro i h h'
     if hlt : i < xs.pop.size then
       rw [getElem_push_lt (h:=hlt), getElem_pop]

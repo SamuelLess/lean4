@@ -1532,7 +1532,7 @@ theorem min_eq_head_toList [TransCmp cmp] {he} :
   TreeMap.minKey_eq_head_keys
 
 theorem min_eq_getElem_toArray [TransCmp cmp] {he} :
-   t.min he = t.toArray[0]'(Nat.zero_lt_of_ne_zero (by simpa [isEmpty_eq_size_eq_zero] using he)) :=
+   t.min he = t.toArray[0]'(Nat.pos_of_ne_zero (by simpa [isEmpty_eq_size_eq_zero] using he)) :=
   TreeMap.minKey_eq_getElem_keysArray
 
 theorem min?_eq_some_min! [TransCmp cmp] [Inhabited α] (he : t.isEmpty = false) :
@@ -1958,7 +1958,7 @@ theorem max_eq_getLast_toList [TransCmp cmp] {he} :
 
 @[grind =_]
 theorem max_eq_back_toArray [TransCmp cmp] {he} :
-    t.max he = t.toArray.back (Nat.zero_lt_of_ne_zero (by simpa [isEmpty_eq_size_eq_zero] using he)) := by
+    t.max he = t.toArray.back (Nat.pos_of_ne_zero (by simpa [isEmpty_eq_size_eq_zero] using he)) := by
   exact TreeMap.maxKey_eq_back_keysArray
 
 theorem max?_eq_some_max! [TransCmp cmp] [Inhabited α] (he : t.isEmpty = false) :

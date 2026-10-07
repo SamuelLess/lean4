@@ -347,10 +347,9 @@ theorem zero_lt_of_lt : {a b : Nat} → a < b → 0 < b
     have : a < b := Nat.lt_trans (Nat.lt_succ_self _) h
     zero_lt_of_lt this
 
-theorem zero_lt_of_ne_zero {a : Nat} (h : a ≠ 0) : 0 < a := by
-  match a with
-  | 0 => contradiction
-  | a+1 => apply Nat.zero_lt_succ
+@[deprecated Nat.pos_of_ne_zero (since := "2026-10-07")]
+theorem zero_lt_of_ne_zero {a : Nat} (h : a ≠ 0) : 0 < a :=
+  Nat.pos_of_ne_zero h
 
 attribute [simp] Nat.lt_irrefl
 

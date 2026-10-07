@@ -16,7 +16,7 @@ public section
 namespace Nat
 
 theorem bitwise_rec_lemma {n : Nat} (hNe : n ≠ 0) : n / 2 < n :=
-  Nat.div_lt_self (Nat.zero_lt_of_ne_zero hNe) (Nat.lt_succ_self _)
+  Nat.div_lt_self (Nat.pos_of_ne_zero hNe) (Nat.lt_succ_self _)
 
 /--
 A helper for implementing bitwise operators on `Nat`.

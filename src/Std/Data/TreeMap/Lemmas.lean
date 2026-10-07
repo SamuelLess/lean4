@@ -3025,7 +3025,7 @@ theorem minKey_insertIfNew_le_self [TransCmp cmp] {k v} :
   DTreeMap.minKey_eq_head_keys
 
 theorem minKey_eq_getElem_keysArray [TransCmp cmp] {he} :
-    t.minKey he = t.keysArray[0]'(Nat.zero_lt_of_ne_zero (by simpa [size_keysArray, isEmpty_eq_size_eq_zero, - Array.size_eq_zero_iff] using he)) :=
+    t.minKey he = t.keysArray[0]'(Nat.pos_of_ne_zero (by simpa [size_keysArray, isEmpty_eq_size_eq_zero, - Array.size_eq_zero_iff] using he)) :=
   DTreeMap.minKey_eq_getElem_keysArray
 
 theorem minKey_modify [TransCmp cmp] {k f he} :
@@ -3622,7 +3622,7 @@ theorem self_le_maxKey_insertIfNew [TransCmp cmp] {k v} :
   DTreeMap.maxKey_eq_getLast_keys
 
 @[grind =_] theorem maxKey_eq_back_keysArray [TransCmp cmp] {he} :
-    t.maxKey he = t.keysArray.back (Nat.zero_lt_of_ne_zero (by simpa [size_keysArray, isEmpty_eq_size_eq_zero, - Array.size_eq_zero_iff] using he)) :=
+    t.maxKey he = t.keysArray.back (Nat.pos_of_ne_zero (by simpa [size_keysArray, isEmpty_eq_size_eq_zero, - Array.size_eq_zero_iff] using he)) :=
   DTreeMap.maxKey_eq_back_keysArray
 
 theorem maxKey_modify [TransCmp cmp] {k f he} :
