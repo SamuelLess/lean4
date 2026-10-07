@@ -60,9 +60,15 @@ Ideally these could all be made private, but they are used in downstream librari
 
 @[norm_cast] theorem ofNat_inj : ((m : Nat) : Int) = (n : Nat) ↔ m = n := ⟨ofNat.inj, congrArg _⟩
 
-theorem ofNat_eq_zero : ((n : Nat) : Int) = 0 ↔ n = 0 := ofNat_inj
+theorem natCast_eq_zero {n : Nat} : (n : Int) = 0 ↔ n = 0 := ofNat_inj
 
-theorem ofNat_ne_zero : ((n : Nat) : Int) ≠ 0 ↔ n ≠ 0 := not_congr ofNat_eq_zero
+@[deprecated Int.natCast_eq_zero (since := "2026-10-07")]
+theorem ofNat_eq_zero : ((n : Nat) : Int) = 0 ↔ n = 0 := natCast_eq_zero
+
+theorem natCast_ne_zero {n : Nat} : (n : Int) ≠ 0 ↔ n ≠ 0 := not_congr natCast_eq_zero
+
+@[deprecated Int.natCast_ne_zero (since := "2026-10-07")]
+theorem ofNat_ne_zero : ((n : Nat) : Int) ≠ 0 ↔ n ≠ 0 := natCast_ne_zero
 
 theorem negSucc_inj : negSucc m = negSucc n ↔ m = n := ⟨negSucc.inj, fun H => by simp [H]⟩
 

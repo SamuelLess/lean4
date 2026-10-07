@@ -58,11 +58,7 @@ protected theorem ofNat_add_one_out (n : Nat) : ↑n + (1 : Int) = ↑(Nat.succ 
 @[norm_cast]
 protected theorem natCast_sub {n m : Nat} : n ≤ m → (↑(m - n) : Int) = ↑m - ↑n := ofNat_sub
 
-theorem natCast_ne_zero {n : Nat} : (n : Int) ≠ 0 ↔ n ≠ 0 := by omega
-
 theorem natCast_ne_zero_iff_pos {n : Nat} : (n : Int) ≠ 0 ↔ 0 < n := by omega
-
-theorem natCast_succ_pos (n : Nat) : 0 < (n.succ : Int) := natCast_pos.2 n.succ_pos
 
 @[simp] theorem ble'_eq_true (a b : Int) : (Int.ble' a b = true) = (a ≤ b) := by
   cases a <;> cases b <;> simp [Int.ble'] <;> omega

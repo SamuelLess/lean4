@@ -95,7 +95,10 @@ theorem ofNat_zero_le (n : Nat) : 0 ≤ (↑n : Int) := ofNat_le.2 n.zero_le
 @[deprecated natCast_nonneg (since := "2025-05-13")]
 theorem ofNat_nonneg (n : Nat) : 0 ≤ (n : Int) := ⟨_⟩
 
-theorem ofNat_succ_pos (n : Nat) : 0 < (succ n : Int) := ofNat_lt.2 <| Nat.succ_pos _
+theorem natCast_succ_pos (n : Nat) : 0 < (n.succ : Int) := natCast_pos.2 n.succ_pos
+
+@[deprecated Int.natCast_succ_pos (since := "2026-10-07")]
+theorem ofNat_succ_pos (n : Nat) : 0 < (succ n : Int) := natCast_succ_pos n
 
 @[simp] protected theorem le_refl (a : Int) : a ≤ a :=
   le.intro _ (Int.add_zero a)
@@ -549,7 +552,7 @@ protected theorem mul_pos {a b : Int} (ha : 0 < a) (hb : 0 < b) : 0 < a * b := b
   let ⟨n, hn⟩ := eq_succ_of_zero_lt ha
   let ⟨m, hm⟩ := eq_succ_of_zero_lt hb
   rw [hn, hm]
-  apply ofNat_succ_pos
+  apply natCast_succ_pos
 
 protected theorem mul_lt_mul_of_pos_left {a b c : Int}
   (h₁ : a < b) (h₂ : 0 < c) : c * a < c * b := by

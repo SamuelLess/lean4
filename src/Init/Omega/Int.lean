@@ -97,7 +97,7 @@ theorem ofNat_mul_nonneg {a b : Nat} : 0 ≤ (a : Int) * b := by
   exact Int.natCast_nonneg (a * b)
 
 theorem ofNat_sub_eq_zero {b a : Nat} (h : ¬ b ≤ a) : ((a - b : Nat) : Int) = 0 :=
-  Int.ofNat_eq_zero.mpr (Nat.sub_eq_zero_of_le (Nat.le_of_lt (Nat.not_le.mp h)))
+  Int.natCast_eq_zero.mpr (Nat.sub_eq_zero_of_le (Nat.le_of_lt (Nat.not_le.mp h)))
 
 theorem ofNat_sub_dichotomy {a b : Nat} :
     b ≤ a ∧ ((a - b : Nat) : Int) = a - b ∨ a < b ∧ ((a - b : Nat) : Int) = 0 := by

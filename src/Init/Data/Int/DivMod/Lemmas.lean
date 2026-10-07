@@ -8,6 +8,7 @@ module
 prelude
 import Init.TacticsExtra
 public import Init.Data.Int.DivMod.Basic
+public import Init.Data.Int.Lemmas
 public import Init.Data.Nat.Div.Basic
 public import Init.NotationExtra
 import Init.ByCases
@@ -27,7 +28,7 @@ open Nat (succ)
 
 namespace Int
 
-@[simp high] theorem natCast_eq_zero {n : Nat} : (n : Int) = 0 ↔ n = 0 := by omega
+attribute [simp high] natCast_eq_zero
 
 instance {n : Nat} [NeZero n] : NeZero (n : Int) := ⟨mt Int.natCast_eq_zero.mp (NeZero.ne _)⟩
 instance {n : Nat} [NeZero n] : NeZero (no_index (OfNat.ofNat n) : Int) :=
@@ -527,7 +528,7 @@ theorem ediv_nonneg_of_nonpos_of_nonpos {a b : Int} (Ha : a ≤ 0) (Hb : b ≤ 0
 theorem ediv_pos_of_neg_of_neg {a b : Int} (ha : a < 0) (hb : b < 0) : 0 < a / b := by
   rw [Int.div_def]
   match a, b, ha, hb with
-  | .negSucc a, .negSucc b, _, _ => apply ofNat_succ_pos
+  | .negSucc a, .negSucc b, _, _ => apply natCast_succ_pos
 
 theorem ediv_nonpos_of_nonneg_of_nonpos {a b : Int} (Ha : 0 ≤ a) (Hb : b ≤ 0) : a / b ≤ 0 :=
   Int.nonpos_of_neg_nonneg <| Int.ediv_neg .. ▸ Int.ediv_nonneg Ha (Int.neg_nonneg_of_nonpos Hb)
@@ -997,7 +998,7 @@ theorem ediv_sign : ∀ a b, a / sign b = a * sign b
 
 protected theorem sign_eq_ediv_natAbs (a : Int) : sign a = a / (natAbs a) :=
   if az : a = 0 then by simp [az] else
-    (Int.ediv_eq_of_eq_mul_left (ofNat_ne_zero.2 <| natAbs_ne_zero.2 az)
+    (Int.ediv_eq_of_eq_mul_left (natCast_ne_zero.2 <| natAbs_ne_zero.2 az)
       (sign_mul_natAbs _).symm).symm
 
 theorem dvd_mul_of_ediv_dvd {a b c : Int} (h : b ∣ a) (hdiv : a / b ∣ c) : a ∣ b * c := by
@@ -1673,7 +1674,7 @@ theorem tdiv_sign : ∀ a b, a.tdiv (sign b) = a * sign b
 
 protected theorem sign_eq_tdiv_abs (a : Int) : sign a = a.tdiv (natAbs a) :=
   if az : a = 0 then by simp [az] else
-    (Int.tdiv_eq_of_eq_mul_left (ofNat_ne_zero.2 <| natAbs_ne_zero.2 az)
+    (Int.tdiv_eq_of_eq_mul_left (natCast_ne_zero.2 <| natAbs_ne_zero.2 az)
       (sign_mul_natAbs _).symm).symm
 
 @[simp high] protected theorem mul_le_mul_left {a b c : Int} (ha : 0 < a) : a * b ≤ a * c ↔ b ≤ c where
@@ -2460,7 +2461,7 @@ theorem fdiv_sign {a b : Int} : a.fdiv (sign b) = a * sign b := by
 
 protected theorem sign_eq_fdiv_abs (a : Int) : sign a = a.fdiv (natAbs a) :=
   if az : a = 0 then by simp [az] else
-    (Int.fdiv_eq_of_eq_mul_left (ofNat_ne_zero.2 <| natAbs_ne_zero.2 az)
+    (Int.fdiv_eq_of_eq_mul_left (natCast_ne_zero.2 <| natAbs_ne_zero.2 az)
       (sign_mul_natAbs _).symm).symm
 
 
