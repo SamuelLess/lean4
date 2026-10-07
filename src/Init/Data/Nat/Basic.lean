@@ -958,28 +958,25 @@ theorem sub_le_succ_sub (a i : Nat) : a - i ≤ a.succ - i := by
   | zero => apply Nat.le_of_lt; apply Nat.lt_succ_self
   | succ i => rw [Nat.sub_succ, Nat.succ_sub_succ]; apply Nat.pred_le
 
-theorem zero_lt_sub_of_lt (h : i < a) : 0 < a - i := by
-  induction a with
-  | zero => contradiction
-  | succ a ih =>
-    match Nat.eq_or_lt_of_le h with
-    | Or.inl h => injection h with h; subst h; rw [Nat.add_sub_self_left]; decide
-    | Or.inr h =>
-      have : 0 < a - i := ih (Nat.lt_of_succ_lt_succ h)
-      exact Nat.lt_of_lt_of_le this (Nat.sub_le_succ_sub _ _)
-
-theorem sub_succ_lt_self (a i : Nat) (h : i < a) : a - (i + 1) < a - i := by
-  rw [Nat.add_succ, Nat.sub_succ]
-  apply Nat.pred_lt
-  apply Nat.ne_zero_of_lt
-  apply Nat.zero_lt_sub_of_lt
-  assumption
-
 theorem sub_ne_zero_of_lt : {a b : Nat} → a < b → b - a ≠ 0
   | 0, 0, h      => absurd h (Nat.lt_irrefl 0)
   | 0, succ b, _ => by simp only [Nat.sub_zero, ne_eq, not_false_eq_true, Nat.succ_ne_zero]
   | succ a, 0, h => absurd h (Nat.not_lt_zero a.succ)
   | succ a, succ b, h => by rw [Nat.succ_sub_succ]; exact sub_ne_zero_of_lt (Nat.lt_of_succ_lt_succ h)
+
+protected theorem sub_pos_of_lt (h : m < n) : 0 < n - m :=
+  Nat.pos_iff_ne_zero.2 (Nat.sub_ne_zero_of_lt h)
+
+@[deprecated Nat.sub_pos_of_lt (since := "2026-10-07")]
+theorem zero_lt_sub_of_lt (h : i < a) : 0 < a - i :=
+  Nat.sub_pos_of_lt h
+
+theorem sub_succ_lt_self (a i : Nat) (h : i < a) : a - (i + 1) < a - i := by
+  rw [Nat.add_succ, Nat.sub_succ]
+  apply Nat.pred_lt
+  apply Nat.ne_zero_of_lt
+  apply Nat.sub_pos_of_lt
+  assumption
 
 theorem add_sub_of_le {a b : Nat} (h : a ≤ b) : a + (b - a) = b := by
   induction a with
@@ -1115,9 +1112,6 @@ theorem sub.elim {motive : Nat → Prop}
 theorem succ_sub {m n : Nat} (h : n ≤ m) : succ m - n = succ (m - n) := by
   let ⟨k, hk⟩ := Nat.le.dest h
   rw [← hk, Nat.add_sub_cancel_left, ← add_succ, Nat.add_sub_cancel_left]
-
-protected theorem sub_pos_of_lt (h : m < n) : 0 < n - m :=
-  Nat.pos_iff_ne_zero.2 (Nat.sub_ne_zero_of_lt h)
 
 protected theorem sub_sub (n m k : Nat) : n - m - k = n - (m + k) := by
   induction k with

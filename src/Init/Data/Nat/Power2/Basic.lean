@@ -18,7 +18,7 @@ namespace Nat
 theorem nextPowerOfTwo_dec {n power : Nat} (h₁ : power > 0) (h₂ : power < n) : n - power * 2 < n - power := by
   have : power * 2 = power + power := by simp +arith
   rw [this, Nat.sub_add_eq]
-  exact Nat.sub_lt (Nat.zero_lt_sub_of_lt h₂) h₁
+  exact Nat.sub_lt (Nat.sub_pos_of_lt h₂) h₁
 
 /--
 Returns the least power of two that's greater than or equal to `n`.
