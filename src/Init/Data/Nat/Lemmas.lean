@@ -1553,18 +1553,18 @@ theorem mul_add_div {m : Nat} (m_pos : m > 0) (x y : Nat) : (m * x + y) / m = x 
     rw [Nat.mul_succ, Nat.add_assoc _ m, mul_add_div m_pos x (m+y), div_eq_ite]
     simp +arith [m_pos]
 
-theorem mul_add_mod (m x y : Nat) : (m * x + y) % m = y % m := by
-  match x with
-  | 0 => simp
-  | x + 1 =>
-    simp [Nat.mul_succ, Nat.add_assoc _ m, mul_add_mod _ x]
+@[deprecated Nat.mul_add_mod_self_left (since := "2026-10-07")]
+theorem mul_add_mod (m x y : Nat) : (m * x + y) % m = y % m :=
+  Nat.mul_add_mod_self_left m x y
 
 -- TODO: make naming and statements consistent across all variations of `mod`, `gcd` etc. across
 -- `Nat` and `Int`.
-theorem mul_add_mod' (a b c : Nat) : (a * b + c) % b = c % b := by rw [Nat.mul_comm, Nat.mul_add_mod]
+@[deprecated Nat.mul_add_mod_self_right (since := "2026-10-07")]
+theorem mul_add_mod' (a b c : Nat) : (a * b + c) % b = c % b :=
+  Nat.mul_add_mod_self_right a b c
 
 theorem mul_add_mod_of_lt {a b c : Nat} (h : c < b) : (a * b + c) % b = c := by
-  rw [Nat.mul_add_mod', Nat.mod_eq_of_lt h]
+  rw [Nat.mul_add_mod_self_right, Nat.mod_eq_of_lt h]
 
 @[simp] theorem mod_div_self (m n : Nat) : m % n / n = 0 := by
   cases n
@@ -1582,7 +1582,7 @@ theorem mod_eq_iff {a b c : Nat} :
    by
      rintro (⟨rfl, rfl⟩ | ⟨w, h, rfl⟩)
      · simp_all
-     · rw [mul_add_mod, mod_eq_of_lt w]⟩
+     · rw [mul_add_mod_self_left, mod_eq_of_lt w]⟩
 
 theorem mod_eq_sub_iff {a b c : Nat} (h₁ : 0 < c) (h : c ≤ b) : a % b = b - c ↔ b ∣ a + c := by
   rw [Nat.mod_eq_iff]
