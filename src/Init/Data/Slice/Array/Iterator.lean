@@ -97,7 +97,8 @@ theorem Subarray.copy_eq_toArray {s : Subarray α} :
     s.copy = s.toArray :=
   (rfl)
 
-@[grind =]
+@[deprecated "both sides are `Std.Slice.toArray s`; use `rfl`, or `Subarray.copy_eq_toArray` \
+for the coercion `Subarray.copy`" (since := "2026-10-07")]
 theorem Subarray.sliceToArray_eq_toArray {s : Subarray α} :
     Slice.toArray s = s.toArray :=
   (rfl)

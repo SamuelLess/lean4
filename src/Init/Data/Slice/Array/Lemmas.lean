@@ -108,6 +108,8 @@ public instance : LawfulSliceSize (Internal.SubarrayData α) where
       ← Iter.length_toList_eq_length, SubarrayIterator.toList_eq,
       s.internalRepresentation.stop_le_array_size, start, stop, array]
 
+@[deprecated "both sides are `Std.Slice.toArray s`; use `rfl`, or `Subarray.copy_eq_toArray` \
+for the coercion `Subarray.copy`" (since := "2026-10-07")]
 public theorem toArray_eq_sliceToArray {α : Type u} {s : Subarray α} :
     s.toArray = Slice.toArray s := by
   simp [Std.Slice.toArray]
