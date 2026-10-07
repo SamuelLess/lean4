@@ -371,8 +371,9 @@ theorem sub_lt_succ (a b) : a - b < succ a := lt_succ_of_le (sub_le a b)
 
 theorem sub_lt_add_one (a b) : a - b < a + 1 := lt_add_one_of_le (sub_le a b)
 
-theorem sub_one_sub_lt (h : i < n) : n - 1 - i < n := by
-  rw [Nat.sub_right_comm]; exact Nat.sub_one_lt_of_le (Nat.sub_pos_of_lt h) (Nat.sub_le ..)
+@[deprecated Nat.sub_one_sub_lt_of_lt (since := "2026-10-07")]
+theorem sub_one_sub_lt (h : i < n) : n - 1 - i < n :=
+  Nat.sub_one_sub_lt_of_lt h
 
 protected theorem exists_eq_add_of_le (h : m ≤ n) : ∃ k : Nat, n = m + k :=
   ⟨n - m, (add_sub_of_le h).symm⟩
