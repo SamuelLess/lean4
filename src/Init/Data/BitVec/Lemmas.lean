@@ -624,14 +624,6 @@ theorem toInt_nonneg_of_msb_false {x : BitVec w} (h : x.msb = false) : 0 ≤ x.t
   have : 2 * x.toNat < 2 ^ w := msb_eq_false_iff_two_mul_lt.mp h
   omega
 
-@[simp] theorem toInt_one_of_lt {w : Nat} (h : 1 < w) : (1#w).toInt = 1 := by
-  rw [toInt_eq_msb_cond]
-  simp only [msb_one, show w ≠ 1 by omega, decide_false, Bool.false_eq_true, ↓reduceIte,
-    toNat_ofNat, Int.natCast_emod]
-  norm_cast
-  apply Nat.mod_eq_of_lt
-  apply Nat.one_lt_two_pow (by omega)
-
 /-- Prove equality of bitvectors in terms of integer operations. -/
 theorem eq_of_toInt_eq {x y : BitVec n} : x.toInt = y.toInt → x = y := by
   intro eq
@@ -719,6 +711,9 @@ theorem toInt_one (h : 1 < w) : (1#w : BitVec w).toInt = 1 := by
   · simp
   · simp
     omega
+
+@[deprecated BitVec.toInt_one (since := "2026-10-07")]
+theorem toInt_one_of_lt {w : Nat} (h : 1 < w) : (1#w).toInt = 1 := toInt_one h
 
 @[simp] theorem sub_toNat_mod_cancel_of_msb_true {x : BitVec w} (h : x.msb = true) :
     (2 ^ w - x.toNat) % 2 ^ w = 2 ^ w - x.toNat := by
