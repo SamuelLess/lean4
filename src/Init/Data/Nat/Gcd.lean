@@ -174,7 +174,7 @@ theorem gcd_div {m n k : Nat} (H1 : k ∣ m) (H2 : k ∣ n) :
   match eq_zero_or_pos k with
   | .inl H0 => by simp [H0]
   | .inr H3 => by
-    apply Nat.eq_of_mul_eq_mul_right H3
+    apply Nat.mul_right_cancel H3
     rw [Nat.div_mul_cancel (dvd_gcd H1 H2), ← gcd_mul_right,
         Nat.div_mul_cancel H1, Nat.div_mul_cancel H2]
 

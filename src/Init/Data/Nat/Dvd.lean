@@ -120,7 +120,7 @@ protected theorem dvd_of_mul_dvd_mul_left
     (kpos : 0 < k) (H : k * m ∣ k * n) : m ∣ n := by
   let ⟨l, H⟩ := H
   rw [Nat.mul_assoc] at H
-  exact ⟨_, Nat.eq_of_mul_eq_mul_left kpos H⟩
+  exact ⟨_, Nat.mul_left_cancel kpos H⟩
 
 protected theorem dvd_of_mul_dvd_mul_right (kpos : 0 < k) (H : m * k ∣ n * k) : m ∣ n := by
   rw [Nat.mul_comm m k, Nat.mul_comm n k] at H; exact Nat.dvd_of_mul_dvd_mul_left kpos H

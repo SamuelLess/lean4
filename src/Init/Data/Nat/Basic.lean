@@ -777,12 +777,20 @@ protected theorem mul_le_mul_left_iff {n m k : Nat} (w : 0 < k) : k * n ≤ k * 
 protected theorem mul_le_mul_right_iff {n m k : Nat} (w : 0 < k) : n * k ≤ m * k ↔ n ≤ m :=
   ⟨fun h => Nat.le_of_mul_le_mul_right h w, fun h => mul_le_mul_right _ h⟩
 
-protected theorem eq_of_mul_eq_mul_left {m k n : Nat} (hn : 0 < n) (h : n * m = n * k) : m = k :=
-  Nat.le_antisymm (Nat.le_of_mul_le_mul_left (Nat.le_of_eq h) hn)
-                  (Nat.le_of_mul_le_mul_left (Nat.le_of_eq h.symm) hn)
+protected theorem mul_left_cancel {n m k : Nat} (np : 0 < n) (h : n * m = n * k) : m = k :=
+  Nat.le_antisymm (Nat.le_of_mul_le_mul_left (Nat.le_of_eq h) np)
+                  (Nat.le_of_mul_le_mul_left (Nat.le_of_eq h.symm) np)
 
-theorem eq_of_mul_eq_mul_right {n m k : Nat} (hm : 0 < m) (h : n * m = k * m) : n = k := by
-  rw [Nat.mul_comm n m, Nat.mul_comm k m] at h; exact Nat.eq_of_mul_eq_mul_left hm h
+protected theorem mul_right_cancel {n m k : Nat} (mp : 0 < m) (h : n * m = k * m) : n = k := by
+  rw [Nat.mul_comm n m, Nat.mul_comm k m] at h; exact Nat.mul_left_cancel mp h
+
+@[deprecated Nat.mul_left_cancel +typeChanged (since := "2026-10-07")]
+protected theorem eq_of_mul_eq_mul_left {m k n : Nat} (hn : 0 < n) (h : n * m = n * k) : m = k :=
+  Nat.mul_left_cancel hn h
+
+@[deprecated Nat.mul_right_cancel (since := "2026-10-07")]
+theorem eq_of_mul_eq_mul_right {n m k : Nat} (hm : 0 < m) (h : n * m = k * m) : n = k :=
+  Nat.mul_right_cancel hm h
 
 /-! # power -/
 
